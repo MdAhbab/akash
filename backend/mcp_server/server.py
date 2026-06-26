@@ -1,7 +1,7 @@
 """QueueStorm MCP server.
 
 Exposes the investigator's tools over the Model Context Protocol (stdio) so any
-MCP-compatible client (Claude Desktop, IDE agents, etc.) can:
+MCP-compatible client (IDE agents, desktop assistants, custom orchestrators) can:
 
   * lookup_transactions  — filter a transaction history
   * match_transaction    — find the transaction a complaint refers to + verdict

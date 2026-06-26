@@ -102,3 +102,10 @@ python -m mcp_server.server
 | `OPENAI_MODEL` | gpt-4o | Fallback model id. |
 | `USE_LLM` | true | `false` ⇒ deterministic, no network. |
 | `LLM_TIMEOUT_SECONDS` | 12 | Per-call hard timeout. |
+| `REQUEST_BUDGET_SECONDS` | 25 | Total LLM-stage budget before deterministic fallback. |
+| `DB_BACKEND` | memory | `mysql` to enable the durability mirror. |
+| `MYSQL_HOST` / `MYSQL_PORT` | — / 3306 | MySQL connection (when `DB_BACKEND=mysql`). |
+| `MYSQL_USER` / `MYSQL_PASSWORD` / `MYSQL_DB` | queuestorm / — / queuestorm | MySQL credentials. |
+
+> The `docker compose` and VM deploy paths set the MySQL variables for you. A
+> bare `uvicorn` run defaults to `DB_BACKEND=memory` (no database needed).

@@ -48,6 +48,11 @@ satisfied. Use this as the pre-submission walkthrough.
 | Deployment & Repro | 5 | `run_onVM.py` one-command deploy + Docker + runbook. |
 | Documentation | 5 | This deliverables folder. |
 
+**Tie-breaker #5 (exceptional engineering):** cost-aware LRU cache, cross-provider
+fallback, total LLM time budget, MySQL durability mirror kept *off* the request
+path, anomaly monitoring, anti-hallucination (deterministic transaction id),
+tolerant input parsing, slim non-root image with HEALTHCHECK.
+
 ---
 
 ## Safety penalties — all avoided

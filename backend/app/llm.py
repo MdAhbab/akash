@@ -139,7 +139,14 @@ async def _call_gemini(prompt: str) -> Optional[dict[str, Any]]:
            f"{s.gemini_model}:generateContent")
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json"},
+        "generationConfig": {
+            "temperature": 0.2,
+            "responseMimeType": "application/json",
+            # gemini-3.5-flash is a "thinking" model. Disabling the thinking
+            # budget keeps latency ~1-2s (within the p95<=5s target) and cuts
+            # cost. Harmless for models that ignore the field.
+            "thinkingConfig": {"thinkingBudget": 0},
+        },
     }
     async with httpx.AsyncClient(timeout=s.llm_timeout_seconds) as client:
         resp = await client.post(url, params={"key": s.gemini_api_key}, json=payload,

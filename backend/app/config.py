@@ -42,6 +42,15 @@ class Settings:
         self.request_budget_seconds: float = _as_float(os.getenv("REQUEST_BUDGET_SECONDS"), 25.0)
         self.use_llm: bool = _as_bool(os.getenv("USE_LLM"), True)
 
+        # Optional MySQL durability mirror (never in the request critical path).
+        # DB_BACKEND = "memory" (default) or "mysql".
+        self.db_backend: str = os.getenv("DB_BACKEND", "memory").strip().lower()
+        self.mysql_host: str = os.getenv("MYSQL_HOST", "").strip()
+        self.mysql_port: int = int(os.getenv("MYSQL_PORT", "3306"))
+        self.mysql_user: str = os.getenv("MYSQL_USER", "queuestorm").strip()
+        self.mysql_password: str = os.getenv("MYSQL_PASSWORD", "").strip()
+        self.mysql_db: str = os.getenv("MYSQL_DB", "queuestorm").strip()
+
     @property
     def has_gemini(self) -> bool:
         return bool(self.gemini_api_key)

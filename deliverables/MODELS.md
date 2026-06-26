@@ -30,10 +30,16 @@ All model ids and behaviour are environment-driven (`backend/app/config.py`):
 | `USE_LLM` | `true` | `false` ⇒ pure deterministic (zero cost, zero network). |
 | `LLM_TIMEOUT_SECONDS` | `12` | Hard per-call timeout before fallback. |
 
-## A note on the Gemini key format
+## Validation & the thinking-model tweak
 
-The supplied Gemini key begins with `AQ.` (a newer key format than the classic
-`AIza…`). The client sends it via both `?key=` and the `x-goog-api-key` header
-for compatibility. If a given environment rejects it, the service transparently
-falls back to OpenAI and then to deterministic mode — so model/key issues never
-produce a failed request.
+The supplied Gemini key (newer `AQ.` format) and the `gemini-3.5-flash` model
+were **validated live** — the API returns `200` and valid output. Because
+`gemini-3.5-flash` is a *thinking* model, the client sets
+`generationConfig.thinkingConfig.thinkingBudget = 0`, which keeps responses fast
+(~1–2 s, measured) and reduces cost, without losing classification quality for
+this structured task.
+
+The key is sent via both `?key=` and the `x-goog-api-key` header for
+compatibility. If Gemini is ever slow or unavailable, the service transparently
+falls back to OpenAI `gpt-4o` (also validated live) and then to the deterministic
+engine — so no model/key/latency issue ever produces a failed request.

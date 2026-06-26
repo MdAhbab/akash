@@ -89,8 +89,9 @@ cd backend && python tests/test_samples.py     # 10/10 sample cases, all replies
 | LLM (primary) | **Google `gemini-3.5-flash`** | Fast, cheap, strong multilingual (Bangla) support. |
 | LLM (fallback) | **OpenAI `gpt-4o`** | Independent provider so one outage ≠ downtime. |
 | Tools / MCP | **Model Context Protocol server** | The agent's tools are reusable by any MCP client. |
+| Persistence | **MySQL 8** (optional durability mirror) | Stores analyzed tickets for the dashboard; **never in the request path** — a DB outage cannot affect `/health` or `/analyze-ticket`. |
 | Frontend | React + Vite + Tailwind + Three.js (optional demo) | "QueueStorm" operations console — not judged, but real. |
-| Deploy | nginx + Docker on a GCP **e2-micro**, Let's Encrypt TLS | One `sudo python3 deploy/run_onVM.py` brings it all up. |
+| Deploy | nginx + Docker on a 1 GB VM (GCP/DigitalOcean), Let's Encrypt TLS | One `sudo python3 deploy/run_onVM.py` brings it all up. |
 
 ---
 
@@ -117,6 +118,12 @@ correct, safe, schema-valid answer in milliseconds** — which is what keeps p95
 latency low and the failure rate at zero. See
 [deliverables/ARCHITECTURE.md](deliverables/ARCHITECTURE.md) and
 [deliverables/AGENTIC_AI.md](deliverables/AGENTIC_AI.md).
+
+> **Anti-hallucination:** the LLM **never selects `relevant_transaction_id`** —
+> that id is always chosen deterministically from the supplied history (and
+> validated to exist in it). The model can refine the *case type* and write the
+> prose, but it cannot invent a transaction. The whole LLM stage is also wrapped
+> in a total time budget; on timeout the deterministic answer ships.
 
 ---
 
@@ -170,8 +177,10 @@ are unavailable, the deterministic engine answers every request.
 - When the input declares `language: bn` or the text is mostly Bangla, the
   customer reply is returned in **Bangla**; otherwise English.
 - `relevant_transaction_id` must be an id present in the supplied history (or `null`).
-- The in-memory store powering the dashboard is per-process and resets on restart
-  (the judge only scores `/health` and `/analyze-ticket`, which are stateless).
+- The dashboard's analytics live in an in-memory store for speed; when
+  `DB_BACKEND=mysql` they are also mirrored to MySQL and reloaded on restart. The
+  judged endpoints (`/health`, `/analyze-ticket`) are stateless and never depend
+  on the DB.
 
 ---
 
@@ -182,10 +191,10 @@ are unavailable, the deterministic engine answers every request.
   unusual phrasing as `other`.
 - Disambiguation across many same-amount transactions deliberately returns
   `insufficient_data` rather than guessing — safe but occasionally conservative.
-- The `gemini-3.5-flash` key format provided is newer than some SDKs expect; the
-  client passes it via both `?key=` and `x-goog-api-key`. If a provider rejects
-  it, the service falls back to OpenAI and then to deterministic mode.
-- No persistent database; analytics are session-scoped by design.
+- `gemini-3.5-flash` is a *thinking* model; we set `thinkingBudget: 0` to keep
+  latency ~1–2 s. If Gemini is ever slow or unavailable the service fails over to
+  OpenAI `gpt-4o` and then to deterministic mode (all three paths validated live).
+- Analytics persist to MySQL when enabled; otherwise they are session-scoped.
 
 ---
 
@@ -204,12 +213,12 @@ Full GCP/VM deployment (one command): [deliverables/DEPLOYMENT_GCP.md](deliverab
 
 ```
 backend/            FastAPI service (the judged artifact)
-  app/              schemas, config, main, store, dashboard routes, llm
+  app/              schemas, config, main, store, db (MySQL mirror), llm
   app/agents/       evidence, reply, safety, orchestrator
   mcp_server/       Model Context Protocol server exposing the agent tools
   tests/            sample-case validation
 frontend/           React "QueueStorm" operations console (optional demo)
-deploy/             run_onVM.py, nginx config, docker-compose, judging.env
+deploy/             run_onVM.py, nginx config, docker-compose (+MySQL), judging.env
 deliverables/       all documentation + sample outputs (start here)
 ```
 

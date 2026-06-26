@@ -46,7 +46,7 @@ answer instantly. That's why it never crashes or times out.
 - **Tools** — small skills the agent calls (look up a transaction, classify,
   check safety).
 - **MCP** — those same tools are published over the Model Context Protocol, so
-  other AI agents (e.g. Claude Desktop) can use your investigator.
+  other AI agents (any MCP-compatible client) can use your investigator.
 - **Planner** — the five-station pipeline with automatic provider fallback.
 - **Reflection** — the safety station critiques and repairs its own draft.
 - **Memory** — it remembers cases and spots patterns (a phishing surge, a

@@ -1,19 +1,52 @@
-# All-in-one demo stack: API + SPA behind nginx (same-origin, no CORS).
-# For the judged Docker submission you only need the backend image; this compose
-# is for running the full demo locally or on a VM without the host-nginx path.
+# All-in-one stack: MySQL + API + SPA behind nginx (same-origin, no CORS).
 #
 #   cd deploy && docker compose --env-file ../.env up -d --build
 #   open http://localhost  (SPA)   ·   http://localhost/health  (API)
+#
+# Note: the API NEVER blocks on MySQL. If the DB is down the API still serves
+# /health and /analyze-ticket — the database is a durable mirror only.
 
 services:
+  db:
+    image: mysql:8.0
+    # Tuned small so it is comfortable on a 1 GB micro VM.
+    command: >-
+      --innodb-buffer-pool-size=64M
+      --performance-schema=OFF
+      --max-connections=40
+      --skip-name-resolve
+    environment:
+      MYSQL_DATABASE: queuestorm
+      MYSQL_USER: queuestorm
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-queuestorm_pw_change_me}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_pw_change_me}
+    volumes:
+      - qs_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-root_pw_change_me}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
   backend:
     build: ../backend
     image: queuestorm-api
     env_file: ../.env
     environment:
       - PORT=8787
+      - DB_BACKEND=mysql
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_USER=queuestorm
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-queuestorm_pw_change_me}
+      - MYSQL_DB=queuestorm
     expose:
       - "8787"
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8787/health').status==200 else 1)"]
@@ -32,3 +65,6 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
+
+volumes:
+  qs_db:

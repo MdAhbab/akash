@@ -26,7 +26,7 @@ and reusable.
 
 The **same** tools are exposed to external agents over MCP in
 `backend/mcp_server/server.py` (stdio transport). Any MCP-compatible client
-(Claude Desktop, IDE agents, custom orchestrators) can call them.
+(IDE agents, desktop assistants, custom orchestrators) can call them.
 
 Run it:
 
@@ -36,7 +36,7 @@ pip install -r requirements-mcp.txt
 python -m mcp_server.server
 ```
 
-Example MCP client config (e.g. Claude Desktop `mcpServers`):
+Example MCP client config (`mcpServers` block):
 
 ```json
 {

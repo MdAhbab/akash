@@ -57,6 +57,14 @@ class CaseStore:
                 self._reviews[item["ticket_id"]] = "open"
         return item
 
+    def seed(self, items: list[dict[str, Any]]) -> None:
+        """Preload items (oldest first) from the durable mirror on startup."""
+        with self._lock:
+            for it in items:
+                self._items.appendleft(it)
+                if it.get("human_review_required") and it.get("ticket_id") not in self._reviews:
+                    self._reviews[it["ticket_id"]] = "open"
+
     # ── queries ───────────────────────────────────────────────────────────
     def list(self, case_type: Optional[str] = None, severity: Optional[str] = None,
              department: Optional[str] = None, limit: int = 20) -> list[dict[str, Any]]:

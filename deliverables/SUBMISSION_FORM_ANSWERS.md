@@ -26,8 +26,10 @@ docker run -p 8000:8000 -e PORT=8000 --env-file judging.env queuestorm-api
 
 **Required environment variable names (names only):**
 `PORT`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `OPENAI_API_KEY`, `OPENAI_MODEL`,
-`USE_LLM`, `LLM_TIMEOUT_SECONDS`
-> The service also runs fully **without** any keys (`USE_LLM=false`, deterministic mode).
+`USE_LLM`, `LLM_TIMEOUT_SECONDS`, `REQUEST_BUDGET_SECONDS`, `DB_BACKEND`,
+`MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DB`
+> The service also runs fully **without** any keys (`USE_LLM=false`) and
+> **without** a database (`DB_BACKEND=memory`) — both are optional enhancements.
 
 **Secrets for judging (private field only, if Docker fallback is used):**
 ```
@@ -69,10 +71,13 @@ OPENAI_API_KEY=[real temporary key]
 ```
 
 **AI/model usage explanation:**
-> Hybrid rule + AI. A deterministic engine performs evidence matching, routing,
-> severity, escalation, and safety. One LLM pass (Google `gemini-3.5-flash`,
-> falling back to OpenAI `gpt-4o`) refines classification and drafts the
-> summary/reply. The service runs correctly even with both LLMs unavailable.
+> Hybrid rule + AI. A deterministic engine performs evidence matching (it alone
+> selects `relevant_transaction_id`, so the model cannot hallucinate one),
+> routing, severity, escalation, and safety. One LLM pass (Google
+> `gemini-3.5-flash`, falling back to OpenAI `gpt-4o`) refines classification and
+> drafts the summary/reply, bounded by a total time budget. The service runs
+> correctly even with both LLMs unavailable. Stack: FastAPI + MySQL (the DB is a
+> durability mirror, never in the request path).
 
 **Safety logic explanation:**
 > Three rules enforced deterministically after the LLM: (1) never request

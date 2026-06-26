@@ -14,11 +14,13 @@ case (LLM down) still yields a correct, safe, schema-valid answer fast.
 """
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
 from collections import OrderedDict
 from typing import Any, Optional
 
+from ..config import get_settings
 from ..llm import reason_with_llm
 from ..schemas import (
     AnalyzeTicketRequest,
@@ -70,11 +72,19 @@ async def analyze(req: AnalyzeTicketRequest) -> tuple[dict[str, Any], str]:
     base = ev.analyze_evidence(req)
 
     # ── 2. Reasoning agent (LLM, optional) ───────────────────────────────
-    llm, provider = await reason_with_llm(req, base)
+    # Bound the TOTAL LLM time (both providers) so we never approach the 30s
+    # judge timeout. On any timeout we fall back to the deterministic answer.
+    budget = max(1.0, get_settings().request_budget_seconds)
+    try:
+        llm, provider = await asyncio.wait_for(reason_with_llm(req, base), timeout=budget)
+    except asyncio.TimeoutError:
+        llm, provider = None, "deterministic:timeout"
     llm = llm or {}
 
     # ── 3. Reconciler ────────────────────────────────────────────────────
-    # case_type: trust LLM unless deterministic flagged phishing (safety wins).
+    # case_type: trust the LLM for nuanced language EXCEPT phishing, which the
+    # deterministic safety classifier locks (never let the model downgrade a
+    # safety case).
     final_case = base.case_type
     if base.case_type != CaseType.phishing_or_social_engineering and llm.get("case_type"):
         try:
@@ -82,27 +92,20 @@ async def analyze(req: AnalyzeTicketRequest) -> tuple[dict[str, Any], str]:
         except ValueError:
             final_case = base.case_type
 
-    # If the case_type changed, recompute the evidence basis for coherence.
-    if final_case != base.case_type and final_case != CaseType.phishing_or_social_engineering:
-        rid, verdict, codes, conf, amount = ev.match_transaction(req, txns, final_case)
+    # Evidence (relevant_transaction_id + verdict) is ALWAYS deterministic and is
+    # recomputed for the final case_type. The LLM never selects the transaction
+    # id, so it cannot hallucinate one that is not in the supplied history.
+    if final_case == base.case_type:
+        rid, verdict = base.relevant_transaction_id, base.evidence_verdict
+        codes, conf, amount = list(base.reason_codes), base.confidence, base.matched_amount
+    elif final_case == CaseType.phishing_or_social_engineering:
+        rid, verdict, codes, conf, amount = (
+            None, EvidenceVerdict.insufficient_data, ["critical_escalation"], 0.95, None)
     else:
-        rid = base.relevant_transaction_id
-        verdict = base.evidence_verdict
-        codes = list(base.reason_codes)
-        conf = base.confidence
-        amount = base.matched_amount
+        rid, verdict, codes, conf, amount = ev.match_transaction(req, txns, final_case)
 
-    # Let the LLM refine relevant_transaction_id / verdict only with valid values.
-    llm_rid = _valid_txn_id(llm.get("relevant_transaction_id"), req)
-    if "relevant_transaction_id" in llm and final_case != CaseType.phishing_or_social_engineering:
-        # Keep deterministic "inconsistent/ambiguous→null" decisions; otherwise honour LLM.
-        if base.evidence_verdict != EvidenceVerdict.inconsistent:
-            rid = llm_rid
-    if llm.get("evidence_verdict") and base.evidence_verdict != EvidenceVerdict.inconsistent:
-        try:
-            verdict = EvidenceVerdict(llm["evidence_verdict"])
-        except ValueError:
-            pass
+    # Defensive guard: rid must be an id present in the history, else null.
+    rid = _valid_txn_id(rid, req)
 
     # Routing / severity / escalation — ALWAYS deterministic policy.
     department = ev.DEPARTMENT_BY_CASE[final_case]

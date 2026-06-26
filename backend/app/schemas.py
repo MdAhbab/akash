@@ -10,7 +10,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 # ─── Enums (taxonomy — must match the problem statement EXACTLY) ───────────
@@ -96,6 +96,23 @@ class TransactionEntry(BaseModel):
     amount: Optional[float] = None
     counterparty: Optional[str] = None
     status: Optional[str] = None
+
+    @field_validator("amount", mode="before")
+    @classmethod
+    def _coerce_amount(cls, v: Any) -> Optional[float]:
+        # Tolerate "5,000", " 5000 ", or junk — never 400 on a single bad amount.
+        if v is None or isinstance(v, (int, float)):
+            return v
+        try:
+            return float(str(v).replace(",", "").strip())
+        except (ValueError, TypeError):
+            return None
+
+    @field_validator("transaction_id", "timestamp", "type", "counterparty", "status",
+                     mode="before")
+    @classmethod
+    def _coerce_str(cls, v: Any) -> Optional[str]:
+        return v if v is None else str(v)
 
 
 class AnalyzeTicketRequest(BaseModel):

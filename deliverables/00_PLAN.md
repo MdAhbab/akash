@@ -83,8 +83,8 @@ We implemented **five** (full detail in `AGENTIC_AI.md`):
 1. **Tool use** — discrete tools (`lookup_transactions`, `match_transaction`,
    `classify_case`, `check_safety`) the agent invokes.
 2. **MCP server** — the *same* tools exposed over the Model Context Protocol
-   (`backend/mcp_server/server.py`) so any MCP client (Claude Desktop, IDE
-   agents) can drive the investigator.
+   (`backend/mcp_server/server.py`) so any MCP client (IDE agents, desktop
+   assistants, custom orchestrators) can drive the investigator.
 3. **Planner / orchestrator** — a multi-step pipeline with provider fallback.
 4. **Reflection** — the safety agent re-examines and repairs the draft reply.
 5. **Episodic memory + anomaly detection** — a store that remembers cases and
@@ -109,7 +109,7 @@ We implemented **five** (full detail in `AGENTIC_AI.md`):
 1. **Read** `TEACHING_GUIDE.md` (how it all works, in plain English) and
    `DELIVERABLES_CHECKLIST.md` (every required item ✔ and where it lives).
 2. **Create the GitHub repo** and push (already wired to `MdAhbab/akash`).
-3. **Point DNS:** add an `A` record `akash.2haas.com → <your VM public IP>`.
+3. **Point DNS:** add an `A` record `akash.2haas.com → 139.59.68.202`.
 4. **Deploy:** `git clone` on the VM, scp your `.env` (real keys) next to it,
    then `sudo python3 deploy/run_onVM.py`.
 5. **Verify** `https://akash.2haas.com/health` from your laptop.

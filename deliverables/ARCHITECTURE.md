@@ -37,9 +37,24 @@ orchestrator.analyze(req)
 | `app/agents/reply.py` | Safe multilingual (en/bn) summaries, actions, replies. |
 | `app/agents/safety.py` | Deterministic guardrail: detect **and repair** unsafe text. |
 | `app/tools.py` | Agent tools (also exported to MCP). |
-| `app/store.py` | In-memory store, stats, anomaly detection. |
+| `app/store.py` | In-memory store, stats, anomaly detection (fast path). |
+| `app/db.py` | Optional MySQL **durability mirror** — best-effort writes + startup reload. Never in the request path. |
 | `app/routes_dashboard.py` | Non-judged endpoints powering the UI. |
 | `mcp_server/server.py` | MCP server exposing the tools over stdio. |
+
+## Persistence model (memory + optional MySQL)
+
+The in-memory store is the **authoritative, fast** path. When `DB_BACKEND=mysql`:
+
+- on startup (FastAPI lifespan) the service loads the most recent rows from MySQL
+  into the store, so the dashboard survives restarts;
+- after each analysis, the ticket is written to MySQL via a **fire-and-forget
+  background task** (`asyncio.create_task` → `asyncio.to_thread`), so the DB write
+  is off the response path entirely.
+
+If MySQL is unconfigured, unreachable, or the driver is missing, every connection
+attempt fails fast (5 s timeouts) and is swallowed — the API behaves exactly as
+in memory-only mode. **A database problem can never slow or fail a ticket.**
 
 ## Why deterministic-first
 
@@ -61,8 +76,10 @@ service:
 | Missing required field | 400. |
 | Empty complaint | 422. |
 | Gemini error/timeout | Silent fallback to OpenAI. |
-| Both providers fail | Deterministic answer (still valid + safe). |
+| Both providers fail / total LLM budget exceeded | Deterministic answer (still valid + safe). |
 | Unknown transaction enum value | Accepted as string, normalized; never crashes. |
+| Malformed amount (`"5,000"`, `"N/A"`) | Coerced (or set to `null`); does not 400 the whole ticket. |
+| MySQL down/unreachable | Best-effort write skipped; request unaffected. |
 | Any unhandled exception | 500 with `{"detail":"Internal error."}` — no stack trace, no secrets. |
 
 ## Performance profile

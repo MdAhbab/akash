@@ -4,19 +4,27 @@ Goal: judges can reach `https://akash.2haas.com/health` and
 `https://akash.2haas.com/analyze-ticket` with **no** assistance. One command does
 everything: `sudo python3 deploy/run_onVM.py`.
 
+> Works on **any** Debian/Ubuntu VM — GCP e2-micro, **DigitalOcean** droplet
+> (this deployment: `139.59.68.202`), AWS, etc. The `gcloud` commands below are
+> GCP-specific; on DigitalOcean just create an Ubuntu droplet and skip to §2.
+
 ---
 
 ## 0. What the script does (recap)
 
 `deploy/run_onVM.py` is idempotent and, on a fresh Debian/Ubuntu VM:
 1. installs nginx, certbot, docker, curl;
-2. adds **2 GB swap** (e2-micro has 1 GB RAM — the frontend build needs it);
+2. adds **2 GB swap** (1 GB micro VMs need it for the frontend build);
 3. writes `/opt/queuestorm/.env` from your keys (or deterministic mode);
-4. builds + runs the **backend** container on `127.0.0.1:8787`;
-5. builds the **frontend** and serves it from `/var/www/queuestorm`;
-6. configures **nginx** to route `/health`, `/analyze-ticket`, `/api/*`;
-7. runs **certbot** for Let's Encrypt HTTPS (best effort);
-8. verifies `/health`.
+4. provisions a tuned **MySQL** container (durability mirror; `--no-db` to skip);
+5. builds + runs the **backend** container on `127.0.0.1:8787`;
+6. builds the **frontend** and serves it from `/var/www/queuestorm`;
+7. configures **nginx** to route `/health`, `/analyze-ticket`, `/api/*`;
+8. runs **certbot** for Let's Encrypt HTTPS (best effort);
+9. verifies `/health`.
+
+MySQL runs on a private Docker network (not published to the host/internet) and
+is **never** in the request path — if it fails, the API keeps serving.
 
 ---
 
@@ -47,7 +55,7 @@ Note the VM's **external IP** (`gcloud compute instances describe queuestorm
 In the DNS for `2haas.com`, add an **A record**:
 
 ```
-akash.2haas.com    A    <VM_EXTERNAL_IP>    (TTL 300)
+akash.2haas.com    A    139.59.68.202    (TTL 300)
 ```
 
 Wait until `nslookup akash.2haas.com` returns the VM IP before requesting TLS.
@@ -108,9 +116,10 @@ curl -X POST https://akash.2haas.com/analyze-ticket \
 ## 6. Operations
 
 ```bash
-docker ps                              # containers
+docker ps                              # containers (queuestorm-api, queuestorm-db)
 docker logs -f queuestorm-api          # API logs
 docker restart queuestorm-api          # restart API
+docker exec -it queuestorm-db mysql -uqueuestorm -p queuestorm   # inspect DB
 sudo systemctl reload nginx            # reload web
 sudo certbot renew --dry-run           # TLS renewal (auto-scheduled by certbot)
 ```

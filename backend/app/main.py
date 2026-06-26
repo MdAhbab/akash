@@ -12,8 +12,10 @@ HTTP status policy (Section 4.1):
 """
 from __future__ import annotations
 
+import asyncio
 import logging
 import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,6 +24,7 @@ from pydantic import ValidationError
 
 from .agents.orchestrator import analyze
 from .config import get_settings
+from .db import db
 from .routes_dashboard import _adapt_sort_body, router as dashboard_router
 from .schemas import AnalyzeTicketRequest, AnalyzeTicketResponse, HealthResponse
 from .store import store
@@ -29,10 +32,24 @@ from .store import store
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("queuestorm")
 
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Best-effort: connect the durable mirror and seed the in-memory store.
+    # Failures here never block startup — the service runs memory-only.
+    try:
+        if db.init():
+            store.seed(db.load_recent(200))
+    except Exception:  # noqa: BLE001
+        log.warning("durability init skipped")
+    yield
+
+
 app = FastAPI(
     title="QueueStorm Investigator",
     version="1.0.0",
     description="An investigator copilot for fintech support agents.",
+    lifespan=lifespan,
 )
 
 # CORS: the judge harness and the SPA both call this cross-origin in some setups.
@@ -63,7 +80,9 @@ async def _run_analysis(req: AnalyzeTicketRequest) -> dict:
     out = validated.model_dump()
     # Episodic memory (for the dashboard + anomaly detection). Never blocks.
     try:
-        store.record(out, req.model_dump(), latency_ms, provider)
+        item = store.record(out, req.model_dump(), latency_ms, provider)
+        # Durable mirror write — fire-and-forget, off the response path.
+        asyncio.create_task(db.insert_async(item))
     except Exception:  # noqa: BLE001
         pass
     return out
