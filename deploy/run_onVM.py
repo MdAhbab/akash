@@ -265,6 +265,7 @@ def build_run_backend() -> None:
 def build_frontend() -> None:
     log("6/9 frontend", "Building the React app and publishing static files …")
     run(["docker", "build", "--target", "build", "-t", FE_BUILD_IMAGE,
+         "--build-arg", f"VITE_API_BASE_URL=https://{DOMAIN}",
          str(REPO_ROOT / "frontend")])
     run(["docker", "rm", "-f", "qs-fe-extract"], check=False, quiet=True)
     run(["docker", "create", "--name", "qs-fe-extract", FE_BUILD_IMAGE])
@@ -303,7 +304,7 @@ def public_ip() -> str:
     # Try GCP metadata, then a couple of provider-agnostic echo services.
     try:
         out = subprocess.run(
-            ["curl", "-s", "-H", "Metadata-Flavor: Google",
+            ["curl", "-4", "-s", "-H", "Metadata-Flavor: Google",
              "http://metadata.google.internal/computeMetadata/v1/instance/"
              "network-interfaces/0/access-configs/0/external-ip"],
             capture_output=True, text=True, timeout=4).stdout.strip()
@@ -313,7 +314,7 @@ def public_ip() -> str:
         pass
     for url in ("https://ifconfig.me", "https://api.ipify.org", "https://ipinfo.io/ip"):
         try:
-            out = subprocess.run(["curl", "-s", url], capture_output=True,
+            out = subprocess.run(["curl", "-4", "-s", url], capture_output=True,
                                  text=True, timeout=4).stdout.strip()
             if out:
                 return out
