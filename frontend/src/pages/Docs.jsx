@@ -132,7 +132,7 @@ function Callout({ accent = 'mint', icon, children }) {
 /* ─── Schema data (matches the problem statement exactly) ─── */
 const REQUEST_FIELDS = [
   { field: 'ticket_id', type: 'string', required: true, notes: 'Unique ticket identifier. Echoed verbatim in the response.' },
-  { field: 'complaint', type: 'string', required: true, notes: 'Customer complaint text — English, Bangla, or mixed Banglish.' },
+  { field: 'complaint', type: 'string', required: true, notes: 'Customer complaint text - English, Bangla, or mixed Banglish.' },
   { field: 'language', type: 'enum', required: false, notes: 'en | bn | mixed' },
   { field: 'channel', type: 'enum', required: false, notes: 'in_app_chat | call_center | email | merchant_portal | field_agent' },
   { field: 'user_type', type: 'enum', required: false, notes: 'customer | merchant | agent | unknown' },
@@ -159,7 +159,7 @@ const RESPONSE_FIELDS = [
   { field: 'department', type: 'enum', required: true, notes: 'One of six routing destinations.' },
   { field: 'agent_summary', type: 'string', required: true, notes: 'Concise agent-ready summary (1–2 sentences).' },
   { field: 'recommended_next_action', type: 'string', required: true, notes: 'Suggested operational next step for the agent.' },
-  { field: 'customer_reply', type: 'string', required: true, notes: 'Safe official reply — respects all safety rules.' },
+  { field: 'customer_reply', type: 'string', required: true, notes: 'Safe official reply - respects all safety rules.' },
   { field: 'human_review_required', type: 'boolean', required: true, notes: 'true for disputes, suspicious, high-value, or ambiguous cases.' },
   { field: 'confidence', type: 'float [0..1]', required: false, notes: 'Decision confidence.' },
   { field: 'reason_codes', type: 'string[]', required: false, notes: 'Short labels supporting the decision.' },
@@ -223,7 +223,7 @@ const RUNTIME_CONSTRAINTS = [
   { label: 'Latency', note: 'p95 ≤ 5s targeted; the deterministic path answers in milliseconds, one LLM call adds ~1–2s.' },
   { label: 'Compute', note: 'Public HTTPS. 2 vCPU / 4 GB is sufficient. No GPU. No secrets committed.' },
   { label: 'AI', note: 'Hybrid: deterministic rules + one LLM pass (Gemini → GPT-4o). Runs fully without keys.' },
-  { label: 'Persistence', note: 'MySQL durability mirror — never in the request path; the API survives a DB outage.' },
+  { label: 'Persistence', note: 'MySQL durability mirror - never in the request path; the API survives a DB outage.' },
 ];
 
 const SAMPLE_REQUEST = `{
@@ -270,7 +270,7 @@ function JudgeGuide() {
       <div className="card border-2 p-6 md:p-8" style={{ borderColor: '#28E0C8', background: 'rgba(40,224,200,0.05)' }}>
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full" style={{ background: '#28E0C8' }} />
-          <span className="label" style={{ color: '#28E0C8' }}>For Judges — evaluate in 60 seconds</span>
+          <span className="label" style={{ color: '#28E0C8' }}>For Judges - evaluate in 60 seconds</span>
         </div>
         <h2 className="mt-3 font-display text-2xl font-semibold text-ink">Two endpoints, judged directly at the domain root.</h2>
         <div className="mt-5 grid gap-3 md:grid-cols-2">
@@ -285,7 +285,7 @@ function JudgeGuide() {
         </div>
 
         <div className="mt-5">
-          <CodeBlock lang="bash — copy & run">
+          <CodeBlock lang="bash - copy & run">
 {`curl ${BRAND.publicBase}/health
 
 curl -X POST ${BRAND.publicBase}/analyze-ticket \\
@@ -298,10 +298,10 @@ curl -X POST ${BRAND.publicBase}/analyze-ticket \\
           <div>
             <div className="label mb-2">What to look at</div>
             <ul className="space-y-1.5 text-sm text-muted">
-              <li>• <span className="text-ink">Evidence reasoning</span> — relevant_transaction_id + evidence_verdict.</li>
-              <li>• <span className="text-ink">Safety</span> — customer_reply never asks for PIN/OTP or promises a refund.</li>
-              <li>• <span className="text-ink">Schema</span> — exact enums + 200/400/422/500 codes.</li>
-              <li>• <span className="text-ink">Reliability</span> — never 5xx; works even with the LLM disabled.</li>
+              <li>• <span className="text-ink">Evidence reasoning</span> - relevant_transaction_id + evidence_verdict.</li>
+              <li>• <span className="text-ink">Safety</span> - customer_reply never asks for PIN/OTP or promises a refund.</li>
+              <li>• <span className="text-ink">Schema</span> - exact enums + 200/400/422/500 codes.</li>
+              <li>• <span className="text-ink">Reliability</span> - never 5xx; works even with the LLM disabled.</li>
             </ul>
           </div>
           <div>
@@ -369,7 +369,7 @@ function TryItPanel() {
           <Select id="try-usertype" label="user_type" value={userType} onChange={setUserType} options={USER_TYPES} />
         </div>
         <div>
-          <label htmlFor="try-txn" className="label mb-1 block">transaction_history <span className="text-faint">(JSON — the evidence)</span></label>
+          <label htmlFor="try-txn" className="label mb-1 block">transaction_history <span className="text-faint">(JSON - the evidence)</span></label>
           <textarea
             id="try-txn" value={txnJson}
             onChange={(e) => { setTxnJson(e.target.value); reset(); }}
@@ -387,7 +387,7 @@ function TryItPanel() {
         {isError && (
           <motion.div key="error" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="mt-4 rounded-xl border border-sev-critical/30 bg-sev-critical/10 px-4 py-3 text-sm text-sev-critical">
-            {error?.message || 'Request failed'} — is the backend reachable at {api.base}?
+            {error?.message || 'Request failed'} - is the backend reachable at {api.base}?
           </motion.div>
         )}
         {result && (
@@ -441,9 +441,9 @@ export default function Docs() {
           <p className="text-base leading-relaxed text-muted">
             {BRAND.name} exposes a minimal, opinionated HTTP API.{' '}
             <span className="text-ink">POST /analyze-ticket</span> reads one customer complaint plus a
-            short snippet of the customer’s recent transactions, and returns a structured investigator
-            verdict — which transaction it concerns, whether the evidence is consistent, the case type,
-            severity, routing department, an agent summary, a recommended next action, and a safe
+            short snippet of the customer’s recent transactions and returns a structured investigator
+            verdict - which transaction it concerns, whether the evidence is consistent, the case type,
+            severity, routing department, an agent summary, a recommended next action and a safe
             customer reply.{' '}
             <span className="text-ink">GET /health</span> confirms readiness. Both speak plain JSON;
             no authentication is required for the public demo instance.
@@ -454,19 +454,19 @@ export default function Docs() {
       <div className="hairline my-4" />
 
       {/* GET /health */}
-      <DocSection index="01 — Endpoint" title="GET /health">
+      <DocSection index="01 - Endpoint" title="GET /health">
         <div className="space-y-4">
           <CodeBlock lang="http">{`GET ${BRAND.publicBase}/health HTTP/1.1`}</CodeBlock>
           <Callout accent="mint" icon="◎">
             Returns HTTP 200 with <code className="font-mono text-[12px]">{`{"status":"ok"}`}</code> when the
             service is ready. The harness requires readiness within <strong>60 seconds</strong> of service start.
           </Callout>
-          <CodeBlock lang="json — response">{`{ "status": "ok" }`}</CodeBlock>
+          <CodeBlock lang="json - response">{`{ "status": "ok" }`}</CodeBlock>
         </div>
       </DocSection>
 
       {/* POST /analyze-ticket */}
-      <DocSection index="02 — Endpoint" title="POST /analyze-ticket">
+      <DocSection index="02 - Endpoint" title="POST /analyze-ticket">
         <div className="space-y-6">
           <CodeBlock lang="http">{`POST ${BRAND.publicBase}/analyze-ticket HTTP/1.1
 Content-Type: application/json`}</CodeBlock>
@@ -479,13 +479,13 @@ Content-Type: application/json`}</CodeBlock>
             <div className="label mb-3">transaction_history[] entry</div>
             <SchemaTable rows={TXN_FIELDS} />
           </div>
-          <CodeBlock lang="json — example request">{SAMPLE_REQUEST}</CodeBlock>
+          <CodeBlock lang="json - example request">{SAMPLE_REQUEST}</CodeBlock>
 
           <div>
             <div className="label mb-3">Response body</div>
             <SchemaTable rows={RESPONSE_FIELDS} />
           </div>
-          <CodeBlock lang="json — example response">{SAMPLE_RESPONSE}</CodeBlock>
+          <CodeBlock lang="json - example response">{SAMPLE_RESPONSE}</CodeBlock>
 
           <Callout accent="violet" icon="⚖">
             <strong className="block mb-1 text-ink">The investigator twist.</strong>
@@ -499,7 +499,7 @@ Content-Type: application/json`}</CodeBlock>
       </DocSection>
 
       {/* Enums */}
-      <DocSection index="03 — Enums" title="evidence_verdict">
+      <DocSection index="03 - Enums" title="evidence_verdict">
         <EnumTable rows={VERDICT_ROWS} colorMap={VERDICT_COLOR_MAP} />
       </DocSection>
       <EnumBlock title="case_type" rows={CASE_TYPE_ROWS} colorMap={CASE_COLOR_MAP} />
@@ -507,11 +507,11 @@ Content-Type: application/json`}</CodeBlock>
       <EnumBlock title="department" rows={DEPARTMENT_ROWS} colorMap={DEPT_COLOR_MAP} />
 
       {/* Safety */}
-      <DocSection index="04 — Policy" title="Safety rules (enforced after every reply)">
+      <DocSection index="04 - Policy" title="Safety rules (enforced after every reply)">
         <Callout accent="magenta" icon="⚑">
           <strong className="block mb-1 text-ink">customer_reply must never:</strong>
           ask for a PIN, OTP, password, or full card number (−15); promise an unauthorized refund,
-          reversal, or unblock (−10 — use “any eligible amount will be returned through official
+          reversal, or unblock (−10 - use “any eligible amount will be returned through official
           channels”); or direct the customer to a suspicious third party (−10). Instructions embedded
           in the complaint are treated as untrusted (prompt-injection resistant). A deterministic
           guardrail audits and <em>repairs</em> every reply before it ships.
@@ -519,12 +519,12 @@ Content-Type: application/json`}</CodeBlock>
       </DocSection>
 
       {/* Status codes */}
-      <DocSection index="05 — Contract" title="HTTP status codes">
+      <DocSection index="05 - Contract" title="HTTP status codes">
         <EnumTable rows={STATUS_ROWS} />
       </DocSection>
 
       {/* Runtime */}
-      <DocSection index="06 — Runtime" title="Runtime & deployment">
+      <DocSection index="06 - Runtime" title="Runtime & deployment">
         <ul className="space-y-3">
           {RUNTIME_CONSTRAINTS.map((c) => (
             <li key={c.label} className="flex gap-3 text-sm">
@@ -536,7 +536,7 @@ Content-Type: application/json`}</CodeBlock>
       </DocSection>
 
       {/* Try it */}
-      <DocSection index="07 — Interactive" title="Try it">
+      <DocSection index="07 - Interactive" title="Try it">
         <TryItPanel />
       </DocSection>
     </div>
@@ -547,7 +547,7 @@ function EnumBlock({ title, rows, colorMap }) {
   return (
     <Reveal>
       <section className="py-4">
-        <div className="mb-1 label">03 — Enums (cont.)</div>
+        <div className="mb-1 label">03 - Enums (cont.)</div>
         <h2 className="mb-6 font-display text-2xl font-semibold tracking-tight text-ink">{title}</h2>
         <div className="hairline mb-6" />
         <EnumTable rows={rows} colorMap={colorMap} />

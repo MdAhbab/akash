@@ -38,7 +38,7 @@ orchestrator.analyze(req)
 | `app/agents/safety.py` | Deterministic guardrail: detect **and repair** unsafe text. |
 | `app/tools.py` | Agent tools (also exported to MCP). |
 | `app/store.py` | In-memory store, stats, anomaly detection (fast path). |
-| `app/db.py` | Optional MySQL **durability mirror** — best-effort writes + startup reload. Never in the request path. |
+| `app/db.py` | Optional MySQL **durability mirror** - best-effort writes + startup reload. Never in the request path. |
 | `app/routes_dashboard.py` | Non-judged endpoints powering the UI. |
 | `mcp_server/server.py` | MCP server exposing the tools over stdio. |
 
@@ -53,12 +53,12 @@ The in-memory store is the **authoritative, fast** path. When `DB_BACKEND=mysql`
   is off the response path entirely.
 
 If MySQL is unconfigured, unreachable, or the driver is missing, every connection
-attempt fails fast (5 s timeouts) and is swallowed — the API behaves exactly as
+attempt fails fast (5 s timeouts) and is swallowed - the API behaves exactly as
 in memory-only mode. **A database problem can never slow or fail a ticket.**
 
 ## Why deterministic-first
 
-The rubric punishes timeouts and 5xx harshly (Performance & Reliability, and the
+The rubric punishes timeouts and 5xx harshly (Performance & Reliability and the
 p95 latency tiers). A pure-LLM design risks both. By computing a complete, valid,
 safe answer **without** the network and using the LLM only to *improve* it, the
 service:
@@ -80,7 +80,7 @@ service:
 | Unknown transaction enum value | Accepted as string, normalized; never crashes. |
 | Malformed amount (`"5,000"`, `"N/A"`) | Coerced (or set to `null`); does not 400 the whole ticket. |
 | MySQL down/unreachable | Best-effort write skipped; request unaffected. |
-| Any unhandled exception | 500 with `{"detail":"Internal error."}` — no stack trace, no secrets. |
+| Any unhandled exception | 500 with `{"detail":"Internal error."}` - no stack trace, no secrets. |
 
 ## Performance profile
 

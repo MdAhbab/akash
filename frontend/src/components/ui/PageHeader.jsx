@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-// Editorial page header: "02 — Command Center" with a big display title.
+// Editorial page header: "02 - Command Center" with a big display title.
 export function PageHeader({ index, title, subtitle, kicker }) {
   return (
     <header className="pt-28 pb-10 md:pt-36 md:pb-14">
@@ -10,7 +10,7 @@ export function PageHeader({ index, title, subtitle, kicker }) {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="label mb-4">
-          {index ? `${index} — ` : ''}
+          {index ? `${index} - ` : ''}
           {kicker || title}
         </div>
         <h1 className="font-display text-[clamp(2.2rem,5vw,4rem)] font-semibold leading-[0.95] tracking-tightest">

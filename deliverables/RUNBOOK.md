@@ -1,10 +1,10 @@
-# RUNBOOK — bring the service up from scratch
+# RUNBOOK - bring the service up from scratch
 
 A stranger can copy-paste this to run Akash. Three paths; pick one.
 
 ---
 
-## Path A — Local (Python)
+## Path A - Local (Python)
 
 ```bash
 cd backend
@@ -31,7 +31,7 @@ curl -X POST http://localhost:8787/analyze-ticket \
 
 ---
 
-## Path B — Docker (the judged image)
+## Path B - Docker (the judged image)
 
 ```bash
 cd backend
@@ -50,7 +50,7 @@ built-in `HEALTHCHECK`.
 
 ---
 
-## Path C — Full demo stack (API + UI)
+## Path C - Full demo stack (API + UI)
 
 ```bash
 cd deploy
@@ -60,7 +60,7 @@ docker compose --env-file ../.env up -d --build
 
 ---
 
-## Path D — Production VM (one command)
+## Path D - Production VM (one command)
 
 See `DEPLOYMENT_GCP.md`. Short version on a fresh Debian/Ubuntu VM:
 
@@ -96,16 +96,16 @@ python -m mcp_server.server
 | Var | Default | Notes |
 |---|---|---|
 | `PORT` | 8787 | Bind port. |
-| `GEMINI_API_KEY` | — | Primary LLM key (optional). |
+| `GEMINI_API_KEY` | - | Primary LLM key (optional). |
 | `GEMINI_MODEL` | gemini-3.5-flash | Primary model id. |
-| `OPENAI_API_KEY` | — | Fallback LLM key (optional). |
+| `OPENAI_API_KEY` | - | Fallback LLM key (optional). |
 | `OPENAI_MODEL` | gpt-4o | Fallback model id. |
 | `USE_LLM` | true | `false` ⇒ deterministic, no network. |
 | `LLM_TIMEOUT_SECONDS` | 12 | Per-call hard timeout. |
 | `REQUEST_BUDGET_SECONDS` | 25 | Total LLM-stage budget before deterministic fallback. |
 | `DB_BACKEND` | memory | `mysql` to enable the durability mirror. |
-| `MYSQL_HOST` / `MYSQL_PORT` | — / 3306 | MySQL connection (when `DB_BACKEND=mysql`). |
-| `MYSQL_USER` / `MYSQL_PASSWORD` / `MYSQL_DB` | akash / — / akash | MySQL credentials. |
+| `MYSQL_HOST` / `MYSQL_PORT` | - / 3306 | MySQL connection (when `DB_BACKEND=mysql`). |
+| `MYSQL_USER` / `MYSQL_PASSWORD` / `MYSQL_DB` | akash / - / akash | MySQL credentials. |
 
 > The `docker compose` and VM deploy paths set the MySQL variables for you. A
 > bare `uvicorn` run defaults to `DB_BACKEND=memory` (no database needed).

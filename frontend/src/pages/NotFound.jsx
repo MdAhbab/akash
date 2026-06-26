@@ -101,7 +101,7 @@ function DriftCanvas() {
 export default function NotFound() {
   return (
     <div className="relative flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center overflow-hidden px-6">
-      {/* Particle canvas — decorative, aria-hidden */}
+      {/* Particle canvas - decorative, aria-hidden */}
       <DriftCanvas />
 
       {/* Content */}
@@ -171,7 +171,7 @@ export default function NotFound() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7, duration: 0.6 }}
       >
-        Akash — Page not found
+        Akash - Page not found
       </motion.div>
     </div>
   );

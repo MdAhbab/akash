@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Akash — one-command VM deployer (Debian/Ubuntu, e.g. GCP e2-micro).
+Akash - one-command VM deployer (Debian/Ubuntu, e.g. GCP e2-micro).
 
-Works on any Debian/Ubuntu VM (GCP, DigitalOcean, AWS, …) — it does not depend
+Works on any Debian/Ubuntu VM (GCP, DigitalOcean, AWS, …) - it does not depend
 on GCP-specific tooling.
 
-WHAT IT DOES (idempotent — safe to re-run):
+WHAT IT DOES (idempotent - safe to re-run):
   1. Installs nginx, certbot, docker, curl.
   2. Adds 2 GB swap if RAM < 2 GB (so the Vite/three.js build won't OOM on micro).
   3. Resolves API keys into /opt/akash/.env (falls back to deterministic,
-     no-LLM mode if no keys are supplied — the service still works and scores).
+     no-LLM mode if no keys are supplied - the service still works and scores).
   4. Provisions a tuned MySQL container (durability mirror; skip with --no-db).
   5. Builds + runs the backend API container on 127.0.0.1:8787.
   6. Builds the React frontend and serves it from /var/www/akash via nginx.
@@ -26,7 +26,7 @@ USAGE (from the repository root, after `git clone`):
 
 Provide real keys one of three ways (checked in order):
   * /opt/akash/.env exists already, OR
-  * a .env file at the repo root (scp it up — it is gitignored), OR
+  * a .env file at the repo root (scp it up - it is gitignored), OR
   * GEMINI_API_KEY / OPENAI_API_KEY set in the environment of this command.
 """
 from __future__ import annotations
@@ -141,7 +141,7 @@ def ensure_swap() -> None:
             f.write("/swapfile none swap sw 0 0\n")
         print("  added 2 GB swap")
     else:
-        print("  swap already present or enough RAM — skipping")
+        print("  swap already present or enough RAM - skipping")
 
 
 # ── stage 3: env file / secrets ────────────────────────────────────────────
@@ -151,7 +151,7 @@ def resolve_env(deterministic: bool) -> None:
     target = APP_DIR / ".env"
 
     if target.exists() and not deterministic:
-        print("  /opt/akash/.env already exists — keeping it")
+        print("  /opt/akash/.env already exists - keeping it")
         return
 
     repo_env = REPO_ROOT / ".env"
@@ -176,7 +176,7 @@ def resolve_env(deterministic: bool) -> None:
     )
     os.chmod(target, 0o600)
     if use_llm == "false":
-        print("  WARNING: no API keys supplied — running in deterministic (no-LLM) mode.")
+        print("  WARNING: no API keys supplied - running in deterministic (no-LLM) mode.")
         print("  The service is still fully functional and judgeable. Add keys to")
         print(f"  {target} and re-run to enable Gemini/OpenAI.")
     else:
@@ -191,7 +191,7 @@ def ensure_network() -> None:
 def provision_mysql(no_db: bool) -> None:
     env_file = APP_DIR / ".env"
     if no_db:
-        log("4/9 database", "MySQL disabled (--no-db) — memory-only mode.")
+        log("4/9 database", "MySQL disabled (--no-db) - memory-only mode.")
         set_env_var(env_file, "DB_BACKEND", "memory")
         return
     log("4/9 database", "Provisioning a tuned MySQL durability mirror …")
@@ -217,7 +217,7 @@ def provision_mysql(no_db: bool) -> None:
             "--max-connections=40", "--skip-name-resolve",
         ])
         if not ok:
-            print("  MySQL container failed to start — falling back to memory-only.")
+            print("  MySQL container failed to start - falling back to memory-only.")
             set_env_var(env_file, "DB_BACKEND", "memory")
             return
 
@@ -232,7 +232,7 @@ def provision_mysql(no_db: bool) -> None:
         time.sleep(2)
 
     if not ready:
-        print("  MySQL did not become ready — falling back to memory-only.")
+        print("  MySQL did not become ready - falling back to memory-only.")
         set_env_var(env_file, "DB_BACKEND", "memory")
         return
 
@@ -325,7 +325,7 @@ def public_ip() -> str:
 def setup_tls(skip: bool) -> None:
     log("8/9 https", "Obtaining a Let's Encrypt certificate …")
     if skip:
-        print("  --skip-tls set — leaving HTTP only.")
+        print("  --skip-tls set - leaving HTTP only.")
         return
     try:
         resolved = socket.gethostbyname(DOMAIN)

@@ -1,9 +1,9 @@
 """Validate the deterministic engine against the 10 public sample cases.
 
 Run in pure deterministic mode (USE_LLM=false) so the test is offline,
-fast, and reproducible. We assert the rubric-critical fields:
+fast and reproducible. We assert the rubric-critical fields:
 relevant_transaction_id, evidence_verdict, case_type, department,
-human_review_required — plus that every customer_reply is safe.
+human_review_required - plus that every customer_reply is safe.
 """
 from __future__ import annotations
 

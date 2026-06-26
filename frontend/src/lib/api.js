@@ -17,7 +17,7 @@ async function req(path, options = {}) {
 export const api = {
   base: BASE,
   health: () => req('/health'),
-  // Canonical judged endpoint — full investigator contract (Section 5/6).
+  // Canonical judged endpoint - full investigator contract (Section 5/6).
   analyzeTicket: (body) => req('/analyze-ticket', { method: 'POST', body: JSON.stringify(body) }),
   // Demo alias kept for backward compatibility with the UI shorthand body.
   sortTicket: (body) => req('/sort-ticket', { method: 'POST', body: JSON.stringify(body) }),

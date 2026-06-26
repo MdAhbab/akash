@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-hairline pt-6 text-xs text-faint md:flex-row md:items-center">
-          <span>© {BRAND.year} {BRAND.name} — bKash · Codex Community Hackathon</span>
+          <span>© {BRAND.year} {BRAND.name} - bKash · Codex Community Hackathon</span>
           <span className="font-mono">FastAPI · MySQL · Gemini + GPT-4o · rules-first hybrid</span>
         </div>
       </div>

@@ -8,14 +8,14 @@
 
 ## **Read this first** 
 
-This manual explains how to execute the preliminary round: read the problem, divide work, build the API, test it, deploy it, and submit the required deliverables. It should be read together with the Problem Statement and the Evaluation Rubric. 
+This manual explains how to execute the preliminary round: read the problem, divide work, build the API, test it, deploy it and submit the required deliverables. It should be read together with the Problem Statement and the Evaluation Rubric. 
 
 ## **1. Participant Document Pack** 
 
 |**Document**|**Purpose**|**What it answers**|
 |---|---|---|
-|Problem Statement|Defnes the challenge, input/output schema, and<br>required behavior.|What do we need to build?|
-|Evaluation Rubric|Explains scoring categories, safety penalties, hidden<br>tests, and tie-breakers.|How will we be judged?|
+|Problem Statement|Defnes the challenge, input/output schema and<br>required behavior.|What do we need to build?|
+|Evaluation Rubric|Explains scoring categories, safety penalties, hidden<br>tests and tie-breakers.|How will we be judged?|
 |Team Instructions<br>Manual|Explains build fow, deployment options, secrets<br>policy,testing,and submission.|How do we execute and<br>submit?|
 
 
@@ -27,23 +27,23 @@ This manual explains how to execute the preliminary round: read the problem, div
 ||Build a backend service for thepreliminarychallenge API.|
 ||Must return{"status":"ok"}. Thisproves the service is running.|
 ||Main endpoint. It must accept the required input JSON and return the required<br>structured output JSON exactlyas defned in the Problem Statement.|
-||Use the exact required feld names, types, and enum values from the problem<br>statement.|
-||Explain setup, run command, AI/model usage, safety logic, and known<br>limitations.|
+||Use the exact required feld names, types and enum values from the problem<br>statement.|
+||Explain setup, run command, AI/model usage, safety logic and known<br>limitations.|
 
 
 
 ## **Frontend/UI is optional** 
 
-A frontend or UI is not required for the preliminary round and will not be directly judged. Prioritize API correctness, reasoning quality, safety, reliability, deployment, and documentation. 
+A frontend or UI is not required for the preliminary round and will not be directly judged. Prioritize API correctness, reasoning quality, safety, reliability, deployment and documentation. 
 
 ## **3. Available Resources** 
 
 |**Resource**<br>Poridhi Labs<br>Poridhi VM<br>AWS through Poridhi Labs<br>Puku Editor/CLI|**How teams may use it**|
 |---|---|
-||Use the provided lab environment for coding, testing, and deployment<br>support.|
+||Use the provided lab environment for coding, testing and deployment<br>support.|
 ||Deploythe API service manuallyon a VM ifprovided.|
 ||Deploy using AWS resources available through Poridhi Labs, such as EC2 or<br>similar environments.|
-||Use for AI-assisted coding, debugging, project setup, refactoring, and<br>documentation.|
+||Use for AI-assisted coding, debugging, project setup, refactoring and<br>documentation.|
 
 
 
@@ -59,7 +59,7 @@ Poridhi resources are provided as support, not as a restriction. Teams may deplo
 
 |**Role**|**Main responsibility**|
 |---|---|
-|API/Backend Lead|Build endpoints, request parsing, response formatting, validation, and<br>deployment setup.|
+|API/Backend Lead|Build endpoints, request parsing, response formatting, validation and<br>deployment setup.|
 |Reasoning/Logic Lead|Implement the core decision logic, data matching, output selection, routing,<br>andpriorityhandlingrequired bythe Problem Statement.|
 |AI/Safety/Docs Lead|Integrate LLM/rules/local model if used, add safety guardrails, test edge cases,<br>and write README.|
 
@@ -88,7 +88,7 @@ POST https://your-service-url.com/[main-endpoint]
 |**Priorit**<br>**y**|**Submission path**|**What to submit**|**Notes**|
 |---|---|---|---|
 |1|Working endpoint URL|Public base URL and GitHub<br>repository.|Preferred path. Judges call the<br>API directly.|
-|2|Lightweight Docker<br>fallback|Dockerfle or image details,<br>dependencyfles, and run command.|Accepted if public deployment is<br>notpossible.|
+|2|Lightweight Docker<br>fallback|Dockerfle or image details,<br>dependencyfles and run command.|Accepted if public deployment is<br>notpossible.|
 |3|Code-only<br>reproducibility|GitHub repo with complete setup/run<br>documentation.|Last fallback. May receive<br>reduced<br>deployment/reproducibility credit<br>if hard to run.|
 
 
@@ -145,7 +145,7 @@ docker run -p 8000:8000 --env-file judging.env hackathon-team
 
 ## **Third-party API responsibility** 
 
-If a team uses OpenAI, Anthropic, Hugging Face, Google AI, or any other external API, the team is responsible for API keys, cost, quota, rate limits, and availability during evaluation. 
+If a team uses OpenAI, Anthropic, Hugging Face, Google AI, or any other external API, the team is responsible for API keys, cost, quota, rate limits and availability during evaluation. 
 
 ## **10. Secrets and Environment Variables** 
 
@@ -155,7 +155,7 @@ Do not commit real secrets to GitHub, even if the repository is private. Do not 
 
 |**Where**|**What should beplaced there**|
 |---|---|
-|GitHub repository|Source code, README, dependency fles, Dockerfle if needed, and<br>.env.example only. No real secrets.|
+|GitHub repository|Source code, README, dependency fles, Dockerfle if needed and<br>.env.example only. No real secrets.|
 |.env.example|Variable names only. Example values should beplaceholders.|
 
 
@@ -234,7 +234,7 @@ Codex Community Hackathon · Online Preliminary Round
 |Secrets forjudging|Onlyif needed|Use theprivate form feld, not GitHub.|
 |Sample request and sample<br>response|Yes|Can be in README or separate fles.|
 |AI/model usage explanation|Yes|Mention rules, local model, external API, or hybrid<br>approach.|
-|Safety logic explanation|Yes|Explain sensitive-data, authorization, and unsafe-action<br>safeguards.|
+|Safety logic explanation|Yes|Explain sensitive-data, authorization and unsafe-action<br>safeguards.|
 |Known limitations|Yes|Be honest about edge cases and failure modes.|
 |No real customer data<br>confrmation|Yes|Only synthetic data should be used.|
 |No secrets committed<br>confrmation|Yes|Checkbox or written confrmation.|
@@ -263,7 +263,7 @@ Codex Community Hackathon · Online Preliminary Round
 |404 on /health or the required main<br>endpoint|Confrm exact route names and base URL.|
 |Invalid JSON response|Return application/json and avoid printing extra logs in the response<br>body.|
 |Schema error|Check required felds,data types,enum spelling,and null handling.|
-|Timeout|Reduce model calls, add fallback logic, cache where safe, and avoid<br>large downloads.|
+|Timeout|Reduce model calls, add fallback logic, cache where safe and avoid<br>large downloads.|
 |External API failure|Handlequota/rate-limit errors safelyand return a controlled response.|
 
 
@@ -272,7 +272,7 @@ Codex Community Hackathon · Online Preliminary Round
 
 |**Problem**|**What to check**|
 |---|---|
-|Docker runs locally but not for judges|Bind to 0.0.0.0, expose the correct port, and document the run<br>command.|
+|Docker runs locally but not for judges|Bind to 0.0.0.0, expose the correct port and document the run<br>command.|
 |Private repo inaccessible|Add organizer GitHub handle(s)before the deadline.|
 |Missing secrets|Use hosting env vars for deployed endpoint or private submission feld<br>for Docker/code fallback.|
 
@@ -284,13 +284,13 @@ Codex Community Hackathon · Online Preliminary Round
 
 - GET /health and POST main analysis endpoint tested successfully. 
 
-- Safety guardrails tested against sensitive-data, authorization-risk, and unsafe-action cases. 
+- Safety guardrails tested against sensitive-data, authorization-risk and unsafe-action cases. 
 
 - Endpoint deployed or Docker/code fallback prepared. 
 
 - GitHub repository accessible to organizers. 
 
-- README includes setup, run command, sample request, sample response, AI/model usage, safety logic, and limitations. 
+- README includes setup, run command, sample request, sample response, AI/model usage, safety logic and limitations. 
 
 - .env.example added if environment variables are needed. 
 

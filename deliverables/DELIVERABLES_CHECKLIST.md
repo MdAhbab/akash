@@ -55,7 +55,7 @@ tolerant input parsing, slim non-root image with HEALTHCHECK.
 
 ---
 
-## Safety penalties — all avoided
+## Safety penalties - all avoided
 
 | Violation | Penalty | Mitigation |
 |---|---:|---|
@@ -66,7 +66,7 @@ tolerant input parsing, slim non-root image with HEALTHCHECK.
 
 ---
 
-## Testing checklist (Team Manual §12) — all ✅
+## Testing checklist (Team Manual §12) - all ✅
 
 - [x] `/health` returns `{"status":"ok"}`
 - [x] Main endpoint accepts sample JSON
@@ -87,5 +87,5 @@ tolerant input parsing, slim non-root image with HEALTHCHECK.
 2. Add DNS A record → VM IP; deploy with `run_onVM.py`; confirm HTTPS `/health`.
 3. Fill the submission form using `SUBMISSION_FORM_ANSWERS.md`.
 4. Put the real key(s) **only** in the form's private field if using the Docker
-   fallback — never in git.
+   fallback - never in git.
 5. (Optional) record the ≤90 s video.

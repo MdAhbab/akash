@@ -1,4 +1,4 @@
-// FilterRail — left rail (desktop) / top horizontal scroll chips (mobile)
+// FilterRail - left rail (desktop) / top horizontal scroll chips (mobile)
 import { cn } from '../../lib/cn.js';
 
 const CASE_TYPES = [
@@ -114,7 +114,7 @@ export default function FilterRail({ filters, onChange }) {
       {/* Desktop: vertical rail */}
       <div className="hidden lg:flex lg:flex-col lg:gap-8">
         <div className="flex items-center justify-between">
-          <span className="label">01 — Filters</span>
+          <span className="label">01 - Filters</span>
           {hasFilter && (
             <button
               onClick={reset}

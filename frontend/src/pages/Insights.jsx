@@ -1,5 +1,5 @@
 /**
- * Insights — F4: Analytics & Trends
+ * Insights - F4: Analytics & Trends
  * Editorial data-report aesthetic. SVG charts, no external chart library.
  * Both Obsidian + Porcelain themes.
  */
@@ -116,7 +116,7 @@ function EmptyInsights() {
           className="font-serif text-2xl leading-snug"
           style={{ color: 'rgb(var(--text-secondary))' }}
         >
-          No data yet — classify tickets in the Playground to generate insights.
+          No data yet - classify tickets in the Playground to generate insights.
         </p>
         <Link
           to="/playground"
@@ -178,7 +178,7 @@ export default function Insights() {
       <PageHeader
         index="04"
         title="Insights"
-        subtitle="What the data is telling you — trends, case mix, and anomalies."
+        subtitle="What the data is telling you - trends, case mix and anomalies."
       />
 
       {isLoading && <PageLoader label="Loading insights" />}
@@ -269,7 +269,7 @@ export default function Insights() {
               <div className="mb-6 grid gap-6 lg:grid-cols-[3fr_2fr]">
                 <ChartCard
                   title="Volume & Severity Over Time"
-                  caption="01 — Trend"
+                  caption="01 - Trend"
                 >
                   {recent.length > 0 ? (
                     <AreaTrend recent={recent} />
@@ -284,7 +284,7 @@ export default function Insights() {
 
                 <ChartCard
                   title="Case-Type Mix"
-                  caption="02 — Distribution"
+                  caption="02 - Distribution"
                 >
                   <CaseMixDonut byCase={byCase} />
                 </ChartCard>
@@ -294,14 +294,14 @@ export default function Insights() {
               <div className="mb-6 grid gap-6 lg:grid-cols-2">
                 <ChartCard
                   title="Severity Distribution"
-                  caption="03 — Severity"
+                  caption="03 - Severity"
                 >
                   <SeverityBars bySeverity={bySeverity} />
                 </ChartCard>
 
                 <ChartCard
                   title="Department Workload"
-                  caption="04 — Routing"
+                  caption="04 - Routing"
                 >
                   <DeptLoad byDept={byDept} />
                 </ChartCard>
@@ -311,7 +311,7 @@ export default function Insights() {
               <div className="mb-16">
                 <ChartCard
                   title="Triage Funnel"
-                  caption="05 — Pipeline"
+                  caption="05 - Pipeline"
                   className="max-w-2xl"
                 >
                   <Funnel

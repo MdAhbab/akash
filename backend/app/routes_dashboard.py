@@ -91,7 +91,7 @@ def insights_summary() -> dict[str, Any]:
     if total == 0:
         narrative = "No tickets analyzed yet. Run a few through the Playground to see trends."
     else:
-        top_case = s["byCase"][0]["key"] if s["byCase"] else "—"
+        top_case = s["byCase"][0]["key"] if s["byCase"] else "-"
         narrative = (
             f"{total} tickets analyzed. The most common case type is "
             f"'{top_case.replace('_', ' ')}', with {s['flagged']} flagged for review "

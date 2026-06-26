@@ -13,7 +13,7 @@ from typing import Any, Optional
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
-# ─── Enums (taxonomy — must match the problem statement EXACTLY) ───────────
+# ─── Enums (taxonomy - must match the problem statement EXACTLY) ───────────
 class Language(str, Enum):
     en = "en"
     bn = "bn"
@@ -100,7 +100,7 @@ class TransactionEntry(BaseModel):
     @field_validator("amount", mode="before")
     @classmethod
     def _coerce_amount(cls, v: Any) -> Optional[float]:
-        # Tolerate "5,000", " 5000 ", or junk — never 400 on a single bad amount.
+        # Tolerate "5,000", " 5000 ", or junk - never 400 on a single bad amount.
         if v is None or isinstance(v, (int, float)):
             return v
         try:

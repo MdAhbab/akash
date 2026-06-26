@@ -1,4 +1,4 @@
-# Akash — nginx site (HTTP). certbot rewrites this to add HTTPS (443) +
+# Akash - nginx site (HTTP). certbot rewrites this to add HTTPS (443) +
 # an HTTP->HTTPS redirect. __DOMAIN__ is substituted by run_onVM.py.
 #
 # Judges hit https://__DOMAIN__/health and /analyze-ticket directly; the SPA

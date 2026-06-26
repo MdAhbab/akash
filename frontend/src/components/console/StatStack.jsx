@@ -1,4 +1,4 @@
-// StatStack — right-rail real-time statistics panel.
+// StatStack - right-rail real-time statistics panel.
 import { motion, AnimatePresence } from 'framer-motion';
 import { StatTile, useCountUp } from '../ui/StatTile.jsx';
 import { SEVERITY_COLOR, DEPT_COLOR, label } from '../../lib/format.js';
@@ -102,7 +102,7 @@ function CriticalCounter({ bySeverity }) {
     >
       <div className="flex items-center justify-between">
         <div className="label" style={critCount > 0 ? { color: '#FF3B5C' } : {}}>
-          04 — Critical Queue
+          04 - Critical Queue
         </div>
         {critCount > 0 && (
           <span className="relative flex h-2 w-2">
@@ -146,7 +146,7 @@ function LatencyTile({ latency }) {
 
   return (
     <div className="rounded-2xl border border-hairline bg-surface p-4">
-      <div className="label mb-2">05 — Latency</div>
+      <div className="label mb-2">05 - Latency</div>
       <div className="flex items-baseline gap-1">
         <span className="font-display text-3xl font-semibold tnum" style={{ color }}>
           {avgDisplay}
@@ -166,7 +166,7 @@ export default function StatStack({ stats }) {
 
   return (
     <aside className="flex flex-col gap-4">
-      <div className="label">03 — Real-Time Stats</div>
+      <div className="label">03 - Real-Time Stats</div>
 
       {/* Mobile: horizontal snap carousel */}
       <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar lg:hidden">
@@ -208,21 +208,21 @@ export default function StatStack({ stats }) {
       <div className="hidden space-y-4 lg:block">
         {/* Top 3 stat tiles */}
         <StatTile
-          label="01 — Total Tickets"
+          label="01 - Total Tickets"
           value={total ?? 0}
           sub="classified by AI"
           accent="rgb(var(--accent-violet))"
         />
 
         <StatTile
-          label="02 — Flagged"
+          label="02 - Flagged"
           value={flagged ?? 0}
           sub="requires human review"
           accent="#FF3D81"
         />
 
         <StatTile
-          label="03 — Open Reviews"
+          label="03 - Open Reviews"
           value={openReviews ?? 0}
           sub="in sentinel queue"
           accent="#F0743A"

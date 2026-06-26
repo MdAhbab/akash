@@ -1,5 +1,5 @@
 /**
- * DeptLoad — Horizontal bar chart for department workload.
+ * DeptLoad - Horizontal bar chart for department workload.
  * Bars colored by DEPT_COLOR, animate scaleX on scroll into view.
  * Full-width design: label | bar track with fill | count
  */

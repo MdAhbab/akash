@@ -1,5 +1,5 @@
 /**
- * Sentinel Radar — 2D canvas radar sweep.
+ * Sentinel Radar - 2D canvas radar sweep.
  * Blips: distance from center = 1 - risk_score (higher risk = closer to center).
  * Angle is deterministic from ticket_id hash.
  * Reduced-motion: static frame (no sweep rotation, no pulse).
@@ -108,7 +108,7 @@ export default function Radar({ reviews = [], reducedMotion = false }) {
       }
 
       if (!reducedMotion) {
-        /* sweep cone — translucent wedge rotated to the current sweep angle */
+        /* sweep cone - translucent wedge rotated to the current sweep angle */
         const coneAngle = Math.PI / 8;
         ctx.save();
         ctx.translate(cx, cy);
@@ -324,7 +324,7 @@ export default function Radar({ reviews = [], reducedMotion = false }) {
         >
           <div className="font-mono text-mint mb-0.5">{tooltip.blip.label}</div>
           <div className="text-muted leading-tight mb-1">
-            {tooltip.blip.snippet || '—'}
+            {tooltip.blip.snippet || '-'}
           </div>
           <div className="tnum" style={{ color: tooltip.blip.color }}>
             Risk {Math.round((tooltip.blip.risk || 0) * 100)}%

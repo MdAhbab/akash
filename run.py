@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Akash — local launcher.
+Akash - local launcher.
 
 Sets up and runs the WHOLE stack on your machine (no Docker needed):
 
@@ -79,7 +79,7 @@ def npm(*args: str) -> list[str]:
 
 def start_frontend(install: bool) -> subprocess.Popen | None:
     if shutil.which("npm") is None and shutil.which("npm.cmd") is None:
-        info("npm not found — skipping frontend (backend still runs).")
+        info("npm not found - skipping frontend (backend still runs).")
         return None
     if install and not (FRONTEND / "node_modules").exists():
         info("installing frontend node_modules (first run) …")

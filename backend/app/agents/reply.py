@@ -70,7 +70,7 @@ def build_next_action(case_type: CaseType, txn_id: Optional[str],
         CaseType.wrong_transfer, CaseType.other, CaseType.duplicate_payment
     ):
         return ("Reply to the customer requesting specific details (transaction ID, amount, "
-                "counterparty, and approximate time) before opening any dispute.")
+                "counterparty and approximate time) before opening any dispute.")
     return {
         CaseType.wrong_transfer: f"Verify {ref} with the customer and initiate the wrong-transfer dispute workflow per policy.",
         CaseType.payment_failed: f"Investigate the ledger status of {ref}. If balance was deducted on a failed payment, trigger the standard reversal flow within SLA.",
@@ -103,12 +103,12 @@ def build_reply(case_type: CaseType, txn_id: Optional[str], lang: str,
         templates = {
             CaseType.wrong_transfer: f"We have noted your concern about transaction{ref}. Our dispute team will review the case and contact you through official support channels.",
             CaseType.payment_failed: f"We have noted that transaction{ref} may have caused an unexpected balance deduction. Our payments team will review the case and any eligible amount will be returned through official channels.",
-            CaseType.refund_request: "Thank you for reaching out. Refunds for completed merchant payments depend on the merchant's own policy. We recommend contacting the merchant through official channels, and we can guide you if needed.",
+            CaseType.refund_request: "Thank you for reaching out. Refunds for completed merchant payments depend on the merchant's own policy. We recommend contacting the merchant through official channels and we can guide you if needed.",
             CaseType.duplicate_payment: f"We have noted the possible duplicate payment for transaction{ref}. Our payments team will verify with the biller and any eligible amount will be returned through official channels.",
             CaseType.merchant_settlement_delay: f"We have noted your concern about settlement{ref}. Our merchant operations team will check the batch status and update you on the expected settlement time through official channels.",
             CaseType.agent_cash_in_issue: f"We have noted your concern about transaction{ref}. Our agent operations team will verify it promptly and update you through official support channels.",
             CaseType.phishing_or_social_engineering: f"Thank you for reaching out before sharing any information. {NEVER_ASK['en']} Please do not share these with anyone, even if they claim to be from us. Our fraud team has been notified of this incident.",
-            CaseType.other: "Thank you for reaching out. To help you faster, please share the transaction ID, the amount involved, and a short description of what went wrong.",
+            CaseType.other: "Thank you for reaching out. To help you faster, please share the transaction ID, the amount involved and a short description of what went wrong.",
         }
 
     body = templates[case_type]

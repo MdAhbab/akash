@@ -1,4 +1,4 @@
-"""Safety guardian — deterministic post-processor (the reflection / guardrail step).
+"""Safety guardian - deterministic post-processor (the reflection / guardrail step).
 
 Runs AFTER any LLM output and BEFORE the response leaves the service. It is the
 last line of defence for the rubric's three hard safety penalties:

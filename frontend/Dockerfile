@@ -1,4 +1,4 @@
-# Akash frontend — multi-stage: build with Node, serve static with nginx.
+# Akash frontend - multi-stage: build with Node, serve static with nginx.
 FROM node:20-slim AS build
 WORKDIR /app
 COPY package*.json ./

@@ -1,4 +1,4 @@
-// Console — Command Center (F2). Live operations dashboard.
+// Console - Command Center (F2). Live operations dashboard.
 // Three-zone layout: left filter rail / center flow+table / right stat stack.
 import { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -58,7 +58,7 @@ export default function Console() {
     department: '',
   });
 
-  // Clean filter params — strip empty strings before sending
+  // Clean filter params - strip empty strings before sending
   const ticketParams = useCallback(() => {
     const p = {};
     if (filters.case_type) p.case_type = filters.case_type;
@@ -109,7 +109,7 @@ export default function Console() {
         <PageHeader
           index="02"
           title="Command Center"
-          subtitle="Live ticket operations — every complaint investigated, routed, and flagged in milliseconds."
+          subtitle="Live ticket operations - every complaint investigated, routed and flagged in milliseconds."
         />
         <PageLoader label="Connecting to live feed" />
       </div>
@@ -122,7 +122,7 @@ export default function Console() {
         <PageHeader
           index="02"
           title="Command Center"
-          subtitle="Live ticket operations — every complaint investigated, routed, and flagged in milliseconds."
+          subtitle="Live ticket operations - every complaint investigated, routed and flagged in milliseconds."
         />
         <ErrorState error={ticketsError || statsError} retry={retryAll} />
       </div>
@@ -134,7 +134,7 @@ export default function Console() {
       <PageHeader
         index="02"
         title="Command Center"
-        subtitle="Live ticket operations — every message, sorted and routed in milliseconds."
+        subtitle="Live ticket operations - every message, sorted and routed in milliseconds."
       />
 
       {/* Live status strip */}
@@ -163,14 +163,14 @@ export default function Console() {
         </div>
       </Reveal>
 
-      {/* Mobile filter chips — rendered inside FilterRail, above main content */}
+      {/* Mobile filter chips - rendered inside FilterRail, above main content */}
       <div className="mb-6 lg:hidden">
         <FilterRail filters={filters} onChange={setFilters} />
       </div>
 
       {/* Main 3-zone layout */}
       <div className="flex gap-8 lg:items-start">
-        {/* LEFT — filter rail (desktop only) */}
+        {/* LEFT - filter rail (desktop only) */}
         <Reveal
           y={16}
           delay={0.1}
@@ -179,13 +179,13 @@ export default function Console() {
           <FilterRail filters={filters} onChange={setFilters} />
         </Reveal>
 
-        {/* CENTER — flow viz + table */}
+        {/* CENTER - flow viz + table */}
         <div className="min-w-0 flex-1">
           {/* Flow visualization */}
           <Reveal y={20} delay={0.15}>
             <section aria-label="Live ticket flow visualization">
               <div className="mb-3 flex items-center justify-between">
-                <span className="label">02 — Live Flow</span>
+                <span className="label">02 - Live Flow</span>
                 <span className="label text-faint">Tickets routing by department</span>
               </div>
               {/* Compact banner on mobile, full viz on desktop */}
@@ -203,7 +203,7 @@ export default function Console() {
             <section aria-label="Live ticket table" aria-live="polite">
               <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="label">03 — Ticket Stream</span>
+                  <span className="label">03 - Ticket Stream</span>
                   {ticketsLoading && (
                     <span className="inline-block h-1 w-1 animate-ping rounded-full bg-violet" />
                   )}
@@ -245,7 +245,7 @@ export default function Console() {
                   className="mt-4 text-center"
                 >
                   <p className="text-sm text-muted">
-                    No tickets yet — classify one in the{' '}
+                    No tickets yet - classify one in the{' '}
                     <Link
                       to="/playground"
                       data-cursor
@@ -260,7 +260,7 @@ export default function Console() {
           </Reveal>
         </div>
 
-        {/* RIGHT — stat stack (desktop) */}
+        {/* RIGHT - stat stack (desktop) */}
         <Reveal
           y={16}
           delay={0.12}
@@ -270,7 +270,7 @@ export default function Console() {
         </Reveal>
       </div>
 
-      {/* Mobile stat stack — horizontal tile carousel */}
+      {/* Mobile stat stack - horizontal tile carousel */}
       <div className="mt-8 lg:hidden">
         <div className="hairline mb-6" />
         <Reveal y={12}>

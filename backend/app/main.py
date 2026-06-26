@@ -1,4 +1,4 @@
-"""FastAPI application — Akash Investigator.
+"""FastAPI application - Akash Investigator.
 
 Required by the spec:
   GET  /health          -> {"status": "ok"}
@@ -36,7 +36,7 @@ log = logging.getLogger("akash")
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     # Best-effort: connect the durable mirror and seed the in-memory store.
-    # Failures here never block startup — the service runs memory-only.
+    # Failures here never block startup - the service runs memory-only.
     try:
         if db.init():
             store.seed(db.load_recent(200))
@@ -81,7 +81,7 @@ async def _run_analysis(req: AnalyzeTicketRequest) -> dict:
     # Episodic memory (for the dashboard + anomaly detection). Never blocks.
     try:
         item = store.record(out, req.model_dump(), latency_ms, provider)
-        # Durable mirror write — fire-and-forget, off the response path.
+        # Durable mirror write - fire-and-forget, off the response path.
         asyncio.create_task(db.insert_async(item))
     except Exception:  # noqa: BLE001
         pass
@@ -140,7 +140,7 @@ app.include_router(dashboard_router)
 
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(request: Request, exc: Exception):
-    # Final safety net — never leak stack traces or secrets.
+    # Final safety net - never leak stack traces or secrets.
     log.exception("Unhandled error")
     return JSONResponse(status_code=500, content={"detail": "Internal error."})
 

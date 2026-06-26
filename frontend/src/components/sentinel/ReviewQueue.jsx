@@ -1,5 +1,5 @@
 /**
- * Sentinel Review Queue — sorted list of flagged tickets.
+ * Sentinel Review Queue - sorted list of flagged tickets.
  * Each card: ticket_id, SeverityBadge, risk bar, message snippet,
  * indicator Tags, SLA countdown (1s interval), action buttons.
  */
@@ -38,7 +38,7 @@ const STATUS_LABELS = {
   safe: 'Safe',
 };
 
-/* Live SLA countdown — re-renders every second */
+/* Live SLA countdown - re-renders every second */
 function SlaCountdown({ slaDue, className }) {
   const [tick, setTick] = useState(0);
   useEffect(() => {

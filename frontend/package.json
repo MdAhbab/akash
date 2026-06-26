@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Akash frontend — investigator copilot console. React + Vite + Tailwind + Three.js + GSAP + Lenis.",
+  "description": "Akash frontend - investigator copilot console. React + Vite + Tailwind + Three.js + GSAP + Lenis.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

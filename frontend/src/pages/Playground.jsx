@@ -33,7 +33,7 @@ export default function Playground() {
         transaction_history = txnJson.trim() ? JSON.parse(txnJson) : [];
         setTxnError('');
       } catch {
-        setTxnError('Transaction history is not valid JSON — sending empty history.');
+        setTxnError('Transaction history is not valid JSON - sending empty history.');
       }
       return api.analyzeTicket({
         ticket_id: ticketId,
@@ -64,7 +64,7 @@ export default function Playground() {
 
   return (
     <div className="shell pb-24">
-      <PageHeader index="01" title="Investigator Playground" subtitle="One complaint plus a transaction snippet in — one evidence-backed verdict out. The complaint says one thing; the data may say another." />
+      <PageHeader index="01" title="Investigator Playground" subtitle="One complaint plus a transaction snippet in - one evidence-backed verdict out. The complaint says one thing; the data may say another." />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
         {/* ---------------- Composer ---------------- */}
@@ -93,7 +93,7 @@ export default function Playground() {
             <Field label="User type"><Select value={userType} onChange={setUserType} options={USER_TYPES} /></Field>
           </div>
 
-          {/* Transaction history — the evidence the investigator reasons over */}
+          {/* Transaction history - the evidence the investigator reasons over */}
           <div className="mt-6">
             <button
               onClick={() => setShowTxn((v) => !v)}
@@ -160,7 +160,7 @@ export default function Playground() {
             {mut.isIdle && (
               <Centered key="idle">
                 <div className="font-serif text-6xl text-faint">{'{ }'}</div>
-                <p className="mt-4 max-w-xs text-muted">Your verdict will assemble here — relevant transaction, evidence verdict, case type, routing, and a safe customer reply.</p>
+                <p className="mt-4 max-w-xs text-muted">Your verdict will assemble here - relevant transaction, evidence verdict, case type, routing and a safe customer reply.</p>
               </Centered>
             )}
           </AnimatePresence>
@@ -251,7 +251,7 @@ function Result({ data }) {
           style={{ borderColor: '#FF3B5C55', background: '#FF3B5C12' }}>
           <span className="flex items-center gap-2 text-sm font-medium" style={{ color: '#FF3B5C' }}>
             <span className="h-2 w-2 animate-pulse-critical rounded-full" style={{ background: '#FF3B5C' }} />
-            Human review required — escalated to Sentinel
+            Human review required - escalated to Sentinel
           </span>
           <Link to="/sentinel" className="text-xs font-medium underline" style={{ color: '#FF3B5C' }} data-cursor>Open Sentinel</Link>
         </motion.div>

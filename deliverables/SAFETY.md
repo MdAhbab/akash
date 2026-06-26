@@ -16,7 +16,7 @@ unsafe text.
 - Crucially it **distinguishes a request from a warning**. "Please **do not
   share** your OTP" is *safe and required*; "please share your OTP" is a
   violation. Sentences matched as warnings are preserved.
-- Any genuine request sentence is **stripped**, and the safe reminder
+- Any genuine request sentence is **stripped** and the safe reminder
   ("Please do not share your PIN, OTP, or password with anyone." / Bangla
   equivalent) is always appended.
 
@@ -84,5 +84,5 @@ clarification). This reproduces the escalation flag on all 10 public samples.
 
 - No keys in the repo, logs, or responses. `.env`, `judging.env`, `API Keys.txt`
   are gitignored; only `*.env.example` placeholders are committed.
-- The 500 handler returns `{"detail":"Internal error."}` — never a stack trace.
+- The 500 handler returns `{"detail":"Internal error."}` - never a stack trace.
 - LLM provider errors are logged by **type name only**, not contents.

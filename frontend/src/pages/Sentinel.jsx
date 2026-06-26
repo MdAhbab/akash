@@ -1,5 +1,5 @@
 /**
- * Sentinel — Fraud & Phishing Review Console (F3).
+ * Sentinel - Fraud & Phishing Review Console (F3).
  * Layout: PageHeader → [Radar | ReviewQueue] → PatternStrip
  * Both themes; reduced-motion safe; responsive (375px–1440px).
  */
@@ -171,7 +171,7 @@ export default function Sentinel() {
                       Threat Radar
                     </div>
 
-                    {/* Radar container — square ratio, centred on mobile */}
+                    {/* Radar container - square ratio, centred on mobile */}
                     <div
                       className="relative w-full max-w-[380px] lg:max-w-none mx-auto lg:mx-0"
                       style={{

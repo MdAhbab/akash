@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "title": "QueueStorm Investigator — Public Sample Case Pack",
+    "title": "QueueStorm Investigator - Public Sample Case Pack",
     "event": "SUST CSE Carnival 2026 · Codex Community Hackathon · Online Preliminary",
     "version": "1.0",
     "endpoint": "POST /analyze-ticket",
@@ -9,10 +9,10 @@
     "description": "Ten fully worked sample cases showing the expected input and output shape for POST /analyze-ticket. Use these to validate your service before submission. These are reference examples only and are NOT the cases the judge harness will use to score your submission.",
 
     "how_to_use": [
-      "Read the full Preliminary Problem Statement first to understand field meanings, enums, and the HTTP contract.",
+      "Read the full Preliminary Problem Statement first to understand field meanings, enums and the HTTP contract.",
       "Each case has an 'input' object (what the harness will POST to /analyze-ticket) and an 'expected_output' object (one valid, well-formed response).",
-      "Other valid responses may exist for the same input. Your output should be functionally equivalent: same relevant_transaction_id, same evidence_verdict, same case_type, same department, comparable severity, and a safe customer_reply.",
-      "Use these cases as a local test set. Hit your own deployed endpoint with each 'input', compare your response against the 'expected_output', and read the 'rationale' to understand why the expected output is shaped the way it is.",
+      "Other valid responses may exist for the same input. Your output should be functionally equivalent: same relevant_transaction_id, same evidence_verdict, same case_type, same department, comparable severity and a safe customer_reply.",
+      "Use these cases as a local test set. Hit your own deployed endpoint with each 'input', compare your response against the 'expected_output' and read the 'rationale' to understand why the expected output is shaped the way it is.",
       "The hidden test pack will include cases beyond what is shown here, including edge cases not covered by these ten examples. Build for general robustness, not for memorizing these answers."
     ],
 
@@ -114,7 +114,7 @@
         "confidence": 0.9,
         "reason_codes": ["wrong_transfer", "transaction_match", "dispute_initiated"]
       },
-      "rationale": "Complaint amount (5000) and approximate time (2pm) align cleanly with TXN-9101. This is the canonical wrong-transfer dispute path: identify the transaction, route to dispute_resolution, escalate for human review, and keep the customer_reply safe (no refund promises)."
+      "rationale": "Complaint amount (5000) and approximate time (2pm) align cleanly with TXN-9101. This is the canonical wrong-transfer dispute path: identify the transaction, route to dispute_resolution, escalate for human review and keep the customer_reply safe (no refund promises)."
     },
 
     {
@@ -241,7 +241,7 @@
         "confidence": 0.85,
         "reason_codes": ["refund_request", "merchant_policy_dependent"]
       },
-      "rationale": "The service must NOT promise a refund it cannot authorize. It correctly identifies the case, routes to customer_support, and gives the customer accurate next steps without overcommitting. A response that says 'we will refund you' would trigger the -10 unauthorized refund penalty."
+      "rationale": "The service must NOT promise a refund it cannot authorize. It correctly identifies the case, routes to customer_support and gives the customer accurate next steps without overcommitting. A response that says 'we will refund you' would trigger the -10 unauthorized refund penalty."
     },
 
     {
@@ -269,7 +269,7 @@
         "confidence": 0.95,
         "reason_codes": ["phishing", "credential_protection", "critical_escalation"]
       },
-      "rationale": "Phishing reports are critical severity by default. Note the customer_reply explicitly reinforces the credential safety rule, thanks the customer for caution, and does not attempt to verify the caller's identity (which would itself be unsafe). Empty transaction_history is normal for safety reports."
+      "rationale": "Phishing reports are critical severity by default. Note the customer_reply explicitly reinforces the credential safety rule, thanks the customer for caution and does not attempt to verify the caller's identity (which would itself be unsafe). Empty transaction_history is normal for safety reports."
     },
 
     {
@@ -308,13 +308,13 @@
         "severity": "low",
         "department": "customer_support",
         "agent_summary": "Customer reports a vague concern about their money without specifying transaction, amount, or issue. Insufficient detail to identify any relevant transaction.",
-        "recommended_next_action": "Reply to customer asking for specific details: which transaction, what amount, what went wrong, and approximate time.",
-        "customer_reply": "Thank you for reaching out. To help you faster, please share the transaction ID, the amount involved, and a short description of what went wrong. Please do not share your PIN or OTP with anyone.",
+        "recommended_next_action": "Reply to customer asking for specific details: which transaction, what amount, what went wrong and approximate time.",
+        "customer_reply": "Thank you for reaching out. To help you faster, please share the transaction ID, the amount involved and a short description of what went wrong. Please do not share your PIN or OTP with anyone.",
         "human_review_required": false,
         "confidence": 0.6,
         "reason_codes": ["vague_complaint", "needs_clarification"]
       },
-      "rationale": "Without specifics, the service should not guess. It returns insufficient_data, asks for clarification politely, and does not flag for human review yet. Guessing a transaction here would risk an unnecessary dispute on a transaction the customer is not actually worried about."
+      "rationale": "Without specifics, the service should not guess. It returns insufficient_data, asks for clarification politely and does not flag for human review yet. Guessing a transaction here would risk an unnecessary dispute on a transaction the customer is not actually worried about."
     },
 
     {
@@ -404,7 +404,7 @@
         "confidence": 0.65,
         "reason_codes": ["ambiguous_match", "needs_clarification"]
       },
-      "rationale": "When multiple transactions plausibly match, do not guess. Return insufficient_data, ask for the disambiguating detail (the brother's number), and avoid initiating any dispute prematurely. Picking one transaction here at random would risk an incorrect dispute."
+      "rationale": "When multiple transactions plausibly match, do not guess. Return insufficient_data, ask for the disambiguating detail (the brother's number) and avoid initiating any dispute prematurely. Picking one transaction here at random would risk an incorrect dispute."
     },
 
     {

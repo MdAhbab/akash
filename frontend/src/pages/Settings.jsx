@@ -262,13 +262,13 @@ export default function Settings() {
               </div>
               <p className="mt-0.5 text-xs text-faint">
                 {reducedMotion
-                  ? 'Your OS requests reduced motion. Animations are disabled: particle simulations are frozen, scroll choreography is replaced with simple in-view fades, and transitions are instant.'
-                  : 'Full motion is running. Lenis smooth scroll, GSAP timelines, and Framer Motion micro-interactions are all active.'}
+                  ? 'Your OS requests reduced motion. Animations are disabled: particle simulations are frozen, scroll choreography is replaced with simple in-view fades and transitions are instant.'
+                  : 'Full motion is running. Lenis smooth scroll, GSAP timelines and Framer Motion micro-interactions are all active.'}
               </p>
             </div>
           </div>
           <p className="mt-3 text-xs text-faint">
-            This is read-only — change it via{' '}
+            This is read-only - change it via{' '}
             <span className="font-mono text-ink">System Preferences → Accessibility → Reduce Motion</span>.
           </p>
         </SettingsCard>
@@ -303,7 +303,7 @@ export default function Settings() {
               <span className="font-mono text-xs text-faint tnum">
                 {healthQuery.dataUpdatedAt
                   ? new Date(healthQuery.dataUpdatedAt).toLocaleTimeString()
-                  : '—'}
+                  : '-'}
               </span>
             </div>
             <div className="hairline" />

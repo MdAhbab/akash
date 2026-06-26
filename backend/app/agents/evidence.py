@@ -3,15 +3,15 @@
 This is the investigator's backbone. It parses the complaint and the supplied
 transaction history and decides, with explainable rules:
 
-  * relevant_transaction_id  — which transaction the complaint is about
-  * evidence_verdict         — consistent / inconsistent / insufficient_data
+  * relevant_transaction_id  - which transaction the complaint is about
+  * evidence_verdict         - consistent / inconsistent / insufficient_data
   * case_type, severity, department, human_review_required
   * reason_codes, confidence
 
-It is fast (sub-millisecond), needs no network, and reproduces every public
+It is fast (sub-millisecond), needs no network and reproduces every public
 sample case. The LLM layer refines wording and ambiguous classification, but
 this engine guarantees a correct, safe, schema-valid answer even with the LLM
-fully disabled — which is what keeps p95 latency low and failure rate at zero.
+fully disabled - which is what keeps p95 latency low and failure rate at zero.
 """
 from __future__ import annotations
 
@@ -135,7 +135,7 @@ SETTLEMENT_TERMS = ["settlement", "settle", "settled", "payout", "merchant",
                     "সেটেলমেন্ট", "সেটেল"]
 AGENT_TERMS = ["agent", "cash in", "cash-in", "cashin", "deposit", "এজেন্ট",
                "ক্যাশ ইন", "ক্যাশইন", "জমা"]
-# Specific wrong-transfer phrasing only — a bare "wrong" (as in "something is
+# Specific wrong-transfer phrasing only - a bare "wrong" (as in "something is
 # wrong") must NOT trigger this case type.
 WRONG_TRANSFER_TERMS = ["wrong number", "wrong person", "wrong recipient",
                         "wrong account", "wrong transaction", "wrong nimber",
@@ -162,7 +162,7 @@ def detect_case_type(req: AnalyzeTicketRequest, txns: list[TransactionEntry]) ->
     has_cash_in = any(_txn_type(t) == "cash_in" for t in txns)
     user_type = (req.user_type or "").lower()
 
-    # 1) Phishing / social engineering — safety-critical, checked first.
+    # 1) Phishing / social engineering - safety-critical, checked first.
     # Trigger when the complaint reports SOMEONE ELSE asking for credentials or a
     # suspicious contact (not merely the customer mentioning their own pin/otp).
     if _any(text, ["scam", "phishing", "প্রতারণা", "প্রতারক", "স্ক্যাম"]) or (

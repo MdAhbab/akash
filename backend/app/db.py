@@ -5,11 +5,11 @@ judged endpoints. The in-memory store (``app/store.py``) remains the fast,
 authoritative path for ``/health`` and ``/analyze-ticket``. MySQL only:
 
   * loads the most recent rows back into memory on startup (so the dashboard
-    survives a restart), and
+    survives a restart) and
   * receives best-effort, background INSERTs after each analysis.
 
 If MySQL is unconfigured, unreachable, or the driver is missing, the service
-runs exactly as before — fully functional and judgeable. A DB outage can never
+runs exactly as before - fully functional and judgeable. A DB outage can never
 slow down or fail a ticket analysis.
 
 Enabled when ``DB_BACKEND=mysql`` and a host is configured.
@@ -109,7 +109,7 @@ class Database:
             log.info("MySQL durability enabled.")
             return True
         except Exception as exc:  # noqa: BLE001
-            log.warning("MySQL init failed (%s) — continuing memory-only.", type(exc).__name__)
+            log.warning("MySQL init failed (%s) - continuing memory-only.", type(exc).__name__)
             self._ready = False
             return False
 

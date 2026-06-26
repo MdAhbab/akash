@@ -2,7 +2,7 @@ import { SEVERITY_COLOR } from '../../lib/format.js';
 
 const STEPS = ['low', 'medium', 'high', 'critical'];
 
-// Vertical severity gauge — fills to the active level.
+// Vertical severity gauge - fills to the active level.
 export function SeverityGauge({ severity = 'low', height = 160 }) {
   const idx = STEPS.indexOf(severity);
   const color = SEVERITY_COLOR[severity] || '#8A857C';

@@ -1,4 +1,4 @@
-// LiveTable — live-updating ticket list with animated new-row entrances.
+// LiveTable - live-updating ticket list with animated new-row entrances.
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -126,7 +126,7 @@ export default function LiveTable({ tickets = [], isLoading }) {
       <div className="flex flex-col items-center gap-4 py-16 text-center">
         <div className="label text-faint">No tickets match filters</div>
         <p className="text-sm text-muted">
-          No tickets yet — classify one in the{' '}
+          No tickets yet - classify one in the{' '}
           <Link to="/playground" data-cursor className="text-violet hover:underline">
             Playground
           </Link>

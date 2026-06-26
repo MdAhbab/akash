@@ -2,11 +2,11 @@
 
 This is the agent's short-term memory. Every analyzed ticket is recorded so the
 service can (a) power the live operations dashboard and (b) detect cross-ticket
-patterns — phishing surges, critical load, volume spikes — which is a form of
+patterns - phishing surges, critical load, volume spikes - which is a form of
 retrieval the agent uses beyond a single request.
 
 It is intentionally process-local (no DB): the judge only scores /health and
-/analyze-ticket, and a small VM has no room for a database. Thread-safe via a
+/analyze-ticket and a small VM has no room for a database. Thread-safe via a
 simple lock; capped to avoid unbounded growth.
 """
 from __future__ import annotations

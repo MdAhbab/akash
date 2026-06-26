@@ -116,7 +116,7 @@ TOOL_SCHEMAS: list[dict[str, Any]] = [
     },
     {
         "name": "classify_case",
-        "description": "Classify a complaint into case_type, severity, department, and escalation.",
+        "description": "Classify a complaint into case_type, severity, department and escalation.",
         "inputSchema": {
             "type": "object",
             "properties": {

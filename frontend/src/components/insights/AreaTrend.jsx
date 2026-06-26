@@ -1,5 +1,5 @@
 /**
- * AreaTrend — Volume / severity sparkline area chart.
+ * AreaTrend - Volume / severity sparkline area chart.
  * Takes stats.recent (newest-first array of {created_at, severity}) and buckets
  * them into N ordered time bands, then draws a stacked area / bar column per band
  * colored by severity. Animates in on scroll via framer-motion path draw.

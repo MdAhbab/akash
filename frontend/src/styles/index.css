@@ -5,7 +5,7 @@
 /* ============================ THEME TOKENS ============================ */
 :root,
 .dark {
-  /* Obsidian (dark) — RGB triplets for Tailwind alpha support */
+  /* Obsidian (dark) - RGB triplets for Tailwind alpha support */
   --bg-base: 10 10 12;
   --bg-elevated: 18 18 23;
   --bg-surface: 22 22 29;
@@ -63,7 +63,7 @@
   }
   /* Links inherit the surrounding text color by default (components set explicit
      colors where needed). Without this, the UA link / visited-purple color makes
-     unstyled links — e.g. the header wordmark — illegible in both themes. */
+     unstyled links - e.g. the header wordmark - illegible in both themes. */
   a {
     color: inherit;
     text-decoration: none;

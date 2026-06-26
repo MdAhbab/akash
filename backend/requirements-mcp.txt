@@ -1,4 +1,4 @@
-# Optional — only needed to run the standalone MCP server (mcp_server/server.py).
+# Optional - only needed to run the standalone MCP server (mcp_server/server.py).
 # Not installed in the API image to keep it small.
 -r requirements.txt
 mcp==1.1.2

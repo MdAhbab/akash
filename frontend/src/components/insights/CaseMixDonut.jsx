@@ -1,5 +1,5 @@
 /**
- * CaseMixDonut — Animated SVG donut chart for case-type mix.
+ * CaseMixDonut - Animated SVG donut chart for case-type mix.
  * Segments colored by CASE_COLOR, with a legend + tnum counts.
  * Animates stroke-dashoffset on scroll into view via framer-motion.
  */

@@ -1,5 +1,5 @@
 /**
- * Funnel — Triage funnel: 4 descending stages with tapering widths.
+ * Funnel - Triage funnel: 4 descending stages with tapering widths.
  * Stages: Received → Classified → Flagged → Open Reviews
  * Shows count + drop-off % between stages.
  * Animates scaleX on scroll into view.

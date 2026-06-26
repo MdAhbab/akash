@@ -1,4 +1,4 @@
-// FlowViz — animated canvas particle stream with 4 department gates.
+// FlowViz - animated canvas particle stream with 4 department gates.
 // Particles enter left, route by department color, settle at gates on the right.
 // Static poster on prefers-reduced-motion.
 import { useEffect, useRef, useMemo } from 'react';
@@ -26,7 +26,7 @@ function StaticPoster({ byDept }) {
   return (
     <div className="flex h-full w-full items-center justify-between gap-4 px-6 py-4">
       <div className="flex flex-col gap-1">
-        <div className="label mb-2">02 — Live Flow</div>
+        <div className="label mb-2">02 - Live Flow</div>
         <div className="text-xs text-muted">Particle stream paused (reduced motion)</div>
       </div>
       <div className="flex gap-6">
@@ -138,7 +138,7 @@ export default function FlowViz({ byDept }) {
         const maxLoad = Math.max(...(byDept?.map((d) => d.n) ?? [1]), 1);
         const loadRatio = Math.min(load / maxLoad, 1);
 
-        // Gate circle — size reflects load
+        // Gate circle - size reflects load
         const radius = 6 + loadRatio * 8;
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);

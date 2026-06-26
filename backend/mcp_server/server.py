@@ -3,13 +3,13 @@
 Exposes the investigator's tools over the Model Context Protocol (stdio) so any
 MCP-compatible client (IDE agents, desktop assistants, custom orchestrators) can:
 
-  * lookup_transactions  — filter a transaction history
-  * match_transaction    — find the transaction a complaint refers to + verdict
-  * classify_case        — full case_type / severity / department / escalation
-  * check_safety         — audit a reply for the three safety penalties
+  * lookup_transactions  - filter a transaction history
+  * match_transaction    - find the transaction a complaint refers to + verdict
+  * classify_case        - full case_type / severity / department / escalation
+  * check_safety         - audit a reply for the three safety penalties
 
 These are the SAME functions the in-process agent uses (app/tools.py), so the
-copilot's capability set is genuinely reusable by external agents — that is the
+copilot's capability set is genuinely reusable by external agents - that is the
 "implementing MCP" agentic feature.
 
 Run:  python -m mcp_server.server      (after `pip install mcp`)

@@ -180,20 +180,20 @@ export default function TicketDetail() {
                   ticket?.locale === 'bn' ? 'font-bn text-lg' : 'font-sans',
                 )}
               >
-                {ticket?.message || '—'}
+                {ticket?.message || '-'}
               </p>
               <div className="hairline my-4" />
               <div className="flex flex-wrap gap-4">
                 <div>
                   <div className="label mb-1">Channel</div>
                   <span className="font-mono text-sm text-muted">
-                    {ticket?.channel || '—'}
+                    {ticket?.channel || '-'}
                   </span>
                 </div>
                 <div>
                   <div className="label mb-1">Locale</div>
                   <span className="font-mono text-sm text-muted">
-                    {ticket?.locale || '—'}
+                    {ticket?.locale || '-'}
                   </span>
                 </div>
                 <div>
@@ -254,7 +254,7 @@ export default function TicketDetail() {
           ) : (
             <Reveal delay={0.05}>
               <div className="card p-6 text-faint italic">
-                No classification yet — run the triage agent.
+                No classification yet - run the triage agent.
               </div>
             </Reveal>
           )}

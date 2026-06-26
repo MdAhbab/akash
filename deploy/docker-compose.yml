@@ -4,7 +4,7 @@
 #   open http://localhost  (SPA)   ·   http://localhost/health  (API)
 #
 # Note: the API NEVER blocks on MySQL. If the DB is down the API still serves
-# /health and /analyze-ticket — the database is a durable mirror only.
+# /health and /analyze-ticket - the database is a durable mirror only.
 
 services:
   db:

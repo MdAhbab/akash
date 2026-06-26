@@ -1,6 +1,6 @@
 """Central configuration, loaded from environment variables.
 
-Secrets are read from the environment only — never hard-coded. In production
+Secrets are read from the environment only - never hard-coded. In production
 they are injected via `--env-file` (Docker) or systemd/host env (VM).
 """
 from __future__ import annotations

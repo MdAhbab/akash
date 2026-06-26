@@ -22,7 +22,7 @@ and reusable.
 
 ---
 
-## 2. MCP — Model Context Protocol server
+## 2. MCP - Model Context Protocol server
 
 The **same** tools are exposed to external agents over MCP in
 `backend/mcp_server/server.py` (stdio transport). Any MCP-compatible client
@@ -51,7 +51,7 @@ Example MCP client config (`mcpServers` block):
 ```
 
 Because the agent's in-process tools and the MCP tools are one implementation,
-"the copilot's capabilities" are genuinely portable — that is the point of MCP.
+"the copilot's capabilities" are genuinely portable - that is the point of MCP.
 
 ---
 
@@ -66,8 +66,8 @@ schema. Each step is independent and the plan degrades gracefully (LLM optional)
 ## 4. Reflection (self-correction guardrail)
 
 After drafting, the **safety agent** re-examines the customer-facing text and
-**repairs** it — stripping credential requests, softening unauthorized promises,
-removing third-party redirects, and guaranteeing the safety reminder. This is a
+**repairs** it - stripping credential requests, softening unauthorized promises,
+removing third-party redirects and guaranteeing the safety reminder. This is a
 reflection loop: generate → critique → revise, before the response leaves the
 service (`backend/app/agents/safety.py`).
 
@@ -77,7 +77,7 @@ service (`backend/app/agents/safety.py`).
 
 `backend/app/store.py` remembers every analyzed case and computes patterns the
 agent could not see from a single request: **phishing surges**, **critical
-load**, and **volume spikes** in the last hour. These power the Sentinel /
+load** and **volume spikes** in the last hour. These power the Sentinel /
 Insights dashboards and demonstrate memory/retrieval beyond one prompt.
 
 ---
@@ -88,7 +88,7 @@ Insights dashboards and demonstrate memory/retrieval beyond one prompt.
 - The system prompt hard-codes the safety rules and instructs the model to treat
   the complaint as **untrusted data** (prompt-injection defense).
 - The model may refine `case_type`, `relevant_transaction_id`, `evidence_verdict`
-  and write the prose — but **routing, severity, escalation, and final safety are
+  and write the prose - but **routing, severity, escalation and final safety are
   re-derived deterministically**, so the model cannot break the contract.
 
 This is exactly the "hybrid rule + AI" design the Team Instructions Manual

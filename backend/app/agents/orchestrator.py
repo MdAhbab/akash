@@ -1,13 +1,13 @@
-"""Agent orchestrator — the planner that runs the investigation pipeline.
+"""Agent orchestrator - the planner that runs the investigation pipeline.
 
 Pipeline (each step is an "agent" with a single responsibility):
 
-  1. Evidence agent   — deterministic transaction matching + verdict (tool layer)
-  2. Reasoning agent  — one LLM pass (Gemini → OpenAI) for language + nuance
-  3. Reconciler       — merge LLM + deterministic; routing/severity/escalation
+  1. Evidence agent   - deterministic transaction matching + verdict (tool layer)
+  2. Reasoning agent  - one LLM pass (Gemini → OpenAI) for language + nuance
+  3. Reconciler       - merge LLM + deterministic; routing/severity/escalation
                         are ALWAYS derived deterministically (policy-correct)
-  4. Safety agent     — reflection step: audit + repair the customer-facing text
-  5. Schema agent     — Pydantic validation guarantees the exact output contract
+  4. Safety agent     - reflection step: audit + repair the customer-facing text
+  5. Schema agent     - Pydantic validation guarantees the exact output contract
 
 Routing, severity, escalation and safety never depend on the LLM, so the worst
 case (LLM down) still yields a correct, safe, schema-valid answer fast.
@@ -107,7 +107,7 @@ async def analyze(req: AnalyzeTicketRequest) -> tuple[dict[str, Any], str]:
     # Defensive guard: rid must be an id present in the history, else null.
     rid = _valid_txn_id(rid, req)
 
-    # Routing / severity / escalation — ALWAYS deterministic policy.
+    # Routing / severity / escalation - ALWAYS deterministic policy.
     department = ev.DEPARTMENT_BY_CASE[final_case]
     severity = ev.derive_severity(final_case, verdict, rid, amount)
     human_review = ev.derive_human_review(final_case, verdict, severity, rid)

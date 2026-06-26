@@ -27,7 +27,7 @@ export const CASE_COLOR = {
   other: '#8A857C',
 };
 
-// Evidence verdict — the investigator headline (consistent / inconsistent / insufficient).
+// Evidence verdict - the investigator headline (consistent / inconsistent / insufficient).
 export const VERDICT_COLOR = {
   consistent: '#5FB587',
   inconsistent: '#F0743A',
@@ -62,7 +62,7 @@ export function timeAgo(iso) {
 }
 
 export function countdown(iso) {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const t = new Date(iso).getTime();
   const diff = Math.floor((t - Date.now()) / 1000);
   const sign = diff < 0 ? '-' : '';
@@ -119,7 +119,7 @@ export const SAMPLE_CASES = [
     ],
   },
   {
-    label: 'Bangla — agent cash-in',
+    label: 'Bangla - agent cash-in',
     language: 'bn', channel: 'call_center', user_type: 'customer',
     complaint: 'আমি আজ সকালে এজেন্টের কাছে ২০০০ টাকা ক্যাশ ইন করেছি কিন্তু আমার ব্যালেন্সে টাকা আসেনি। এজেন্ট বলছে টাকা পাঠিয়েছে কিন্তু আমি দেখছি না।',
     transaction_history: [

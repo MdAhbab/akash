@@ -2,8 +2,8 @@
 
 Design goals:
   * Strict JSON output (so we can validate against the schema).
-  * Hard timeouts — a slow provider must never approach the 30s judge limit.
-  * Total resilience — ANY error returns None, and the caller falls back to the
+  * Hard timeouts - a slow provider must never approach the 30s judge limit.
+  * Total resilience - ANY error returns None and the caller falls back to the
     deterministic engine. The service never 5xx's because of the LLM.
 """
 from __future__ import annotations
@@ -193,7 +193,7 @@ async def reason_with_llm(
             coerced = _coerce(raw) if raw else None
             if coerced:
                 return coerced, f"gemini:{s.gemini_model}"
-        except Exception as exc:  # noqa: BLE001 — any failure falls through
+        except Exception as exc:  # noqa: BLE001 - any failure falls through
             log.warning("Gemini call failed: %s", type(exc).__name__)
 
     if s.has_openai:

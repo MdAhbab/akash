@@ -1,8 +1,8 @@
-# 00 — Master Plan & "What we did while planning"
+# 00 - Master Plan & "What we did while planning"
 
 This is the document to read first. It explains **how we approached the
-problem**, **why the architecture looks the way it does**, and **what every
-moving part is for** — so you can defend the solution to a judge and understand
+problem**, **why the architecture looks the way it does** and **what every
+moving part is for** - so you can defend the solution to a judge and understand
 it end to end.
 
 ---
@@ -17,7 +17,7 @@ judged. So we spent our effort where the points are:
 |---|---:|---|
 | Evidence Reasoning | **35** | A deterministic engine that identifies the right transaction + verdict, reproducing all 10 public samples, refined by an LLM. |
 | Safety & Escalation | **20** | A deterministic guardrail that *repairs* unsafe text after the LLM, so the three penalties can't land. |
-| API Contract & Schema | **15** | Pydantic enums — wrong enum values are literally impossible to emit. Precise 200/400/422/500 codes. |
+| API Contract & Schema | **15** | Pydantic enums - wrong enum values are literally impossible to emit. Precise 200/400/422/500 codes. |
 | Performance & Reliability | **10** | Deterministic-first, hard LLM timeout, total fallback, response cache. Never 5xx, never stall. |
 | Response Quality | 10 | LLM prose + safe templates; Bangla replies for Bangla input. |
 | Deployment & Repro | 5 | One-command VM deploy + Docker image + runbook. |
@@ -41,14 +41,14 @@ samples, e.g.:
 - **Established-recipient contradiction:** "I sent it to the wrong person" but
   the history shows repeated transfers to that same number ⇒ `inconsistent`.
 - **Duplicate detection:** two identical payments to the same biller seconds
-  apart ⇒ `duplicate_payment`, and the *second* one is the suspected duplicate.
+  apart ⇒ `duplicate_payment` and the *second* one is the suspected duplicate.
 - **Ambiguity honesty:** several equally-plausible transactions ⇒
   `insufficient_data` with `relevant_transaction_id = null` (we don't guess).
 - **Safety reports:** phishing ⇒ `critical`, `fraud_risk`, `human_review`,
   `relevant_transaction_id = null` (it's about a threat, not a ledger entry).
 
 These rules alone score the 10 samples 10/10. The LLM then improves wording and
-catches phrasing the rules miss — but it can never override routing/severity/
+catches phrasing the rules miss - but it can never override routing/severity/
 safety, which stay deterministic.
 
 ---
@@ -80,14 +80,14 @@ reliability story.
 
 We implemented **five** (full detail in `AGENTIC_AI.md`):
 
-1. **Tool use** — discrete tools (`lookup_transactions`, `match_transaction`,
+1. **Tool use** - discrete tools (`lookup_transactions`, `match_transaction`,
    `classify_case`, `check_safety`) the agent invokes.
-2. **MCP server** — the *same* tools exposed over the Model Context Protocol
+2. **MCP server** - the *same* tools exposed over the Model Context Protocol
    (`backend/mcp_server/server.py`) so any MCP client (IDE agents, desktop
    assistants, custom orchestrators) can drive the investigator.
-3. **Planner / orchestrator** — a multi-step pipeline with provider fallback.
-4. **Reflection** — the safety agent re-examines and repairs the draft reply.
-5. **Episodic memory + anomaly detection** — a store that remembers cases and
+3. **Planner / orchestrator** - a multi-step pipeline with provider fallback.
+4. **Reflection** - the safety agent re-examines and repairs the draft reply.
+5. **Episodic memory + anomaly detection** - a store that remembers cases and
    flags phishing surges / critical load / volume spikes across tickets.
 
 ---

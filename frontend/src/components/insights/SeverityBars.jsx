@@ -1,5 +1,5 @@
 /**
- * SeverityBars — Vertical bar chart for severity distribution.
+ * SeverityBars - Vertical bar chart for severity distribution.
  * Bars colored by SEVERITY_COLOR, animate scaleY on scroll into view.
  * Hairline grid lines for editorial feel.
  */

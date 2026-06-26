@@ -15,19 +15,19 @@ const GATES = [
 ];
 
 const QUESTIONS = [
-  { n: '01', k: 'Evidence', t: 'Which transaction is this really about?', d: 'Akash matches the complaint to the customer’s recent transactions and returns the relevant transaction id — or null when nothing in the history fits.', c: '#28E0C8' },
+  { n: '01', k: 'Evidence', t: 'Which transaction is this really about?', d: 'Akash matches the complaint to the customer’s recent transactions and returns the relevant transaction id - or null when nothing in the history fits.', c: '#28E0C8' },
   { n: '02', k: 'Verdict', t: 'Does the data back the claim?', d: 'consistent, inconsistent, or insufficient_data. When the evidence is genuinely unclear, Akash says so instead of guessing.', c: '#7A5CFF' },
-  { n: '03', k: 'Routing', t: 'Who handles it, and how urgent?', d: 'Case type, severity, and the right department — disputes, payments, merchant, agent, or fraud — decided by policy, not vibes.', c: '#34C7E0' },
+  { n: '03', k: 'Routing', t: 'Who handles it and how urgent?', d: 'Case type, severity and the right department - disputes, payments, merchant, agent, or fraud - decided by policy, not vibes.', c: '#34C7E0' },
   { n: '04', k: 'Safe reply', t: 'What can we tell the customer?', d: 'A professional draft that never asks for a PIN or OTP and never promises a refund it has no authority to confirm.', c: '#FF3D81' },
 ];
 
 const JOURNEY = ['Received', 'Complaint read', 'Evidence matched', 'Verdict', 'Routed', 'Safe reply'];
 
 const FEATURES = [
-  { n: '01', t: 'Investigator Playground', d: 'Paste a complaint and a few transactions, then watch Akash identify the relevant transaction, deliver an evidence verdict, route the case, and draft a safe reply — with a cinematic reveal.', to: '/playground', tag: 'Try it live' },
+  { n: '01', t: 'Investigator Playground', d: 'Paste a complaint and a few transactions, then watch Akash identify the relevant transaction, deliver an evidence verdict, route the case and draft a safe reply - with a cinematic reveal.', to: '/playground', tag: 'Try it live' },
   { n: '02', t: 'Command Center', d: 'A living operations floor: tickets streaming into department gates, severity heatmaps, department load, throughput and latency, in real time.', to: '/console', tag: 'Live ops' },
-  { n: '03', t: 'Sentinel', d: 'A fraud radar where every phishing and critical case surfaces for human review — risk by distance, severity by colour, an SLA on every blip.', to: '/sentinel', tag: 'Human review' },
-  { n: '04', t: 'Insights', d: 'The numbers, read back to you: volume trends, case mix, a triage funnel, and plain-language anomaly callouts written from real data.', to: '/insights', tag: 'Analytics' },
+  { n: '03', t: 'Sentinel', d: 'A fraud radar where every phishing and critical case surfaces for human review - risk by distance, severity by colour, an SLA on every blip.', to: '/sentinel', tag: 'Human review' },
+  { n: '04', t: 'Insights', d: 'The numbers, read back to you: volume trends, case mix, a triage funnel and plain-language anomaly callouts written from real data.', to: '/insights', tag: 'Analytics' },
 ];
 
 export default function Landing() {
@@ -113,7 +113,7 @@ export default function Landing() {
                 </span>
               </h1>
               <p className="mt-6 max-w-lg text-base text-white/65 md:text-lg">
-                Akash is an investigator copilot for digital-finance support. It reads each ticket and the customer’s recent transactions, decides what actually happened, routes the case, and drafts a safe reply — in milliseconds.
+                Akash is an investigator copilot for digital-finance support. It reads each ticket and the customer’s recent transactions, decides what actually happened, routes the case and drafts a safe reply - in milliseconds.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link to="/playground" className="btn !bg-white !text-black hover:-translate-y-0.5" data-cursor>Open the Console</Link>
@@ -168,7 +168,7 @@ export default function Landing() {
           <Reveal><div className="label mb-3">The journey of one ticket</div></Reveal>
           <Reveal delay={0.05}>
             <h2 className="max-w-2xl font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold leading-tight">
-              From noise to a routed verdict — traced end to end.
+              From noise to a routed verdict - traced end to end.
             </h2>
           </Reveal>
           <div className="relative mt-20">

@@ -2,19 +2,19 @@
 
 It is 2:47 PM on a Saturday afternoon. Three hours ago, a major digital finance platform launched its biggest campaign of the year, a national cashback and merchant payment promotion. The marketing team is celebrating. The support team is not. 
 
-By 2 PM, support agents were handling 11 cases each per hour. By 4 PM, that number will climb to 19. By the time the campaign closes at midnight, the platform expects more than 40,000 complaints to land in the queue. Wrong transfers, failed transactions, deducted balances, refund requests, merchant settlement issues, agent disputes, and a growing wave of suspicious calls and scam messages exploiting the campaign moment. 
+By 2 PM, support agents were handling 11 cases each per hour. By 4 PM, that number will climb to 19. By the time the campaign closes at midnight, the platform expects more than 40,000 complaints to land in the queue. Wrong transfers, failed transactions, deducted balances, refund requests, merchant settlement issues, agent disputes and a growing wave of suspicious calls and scam messages exploiting the campaign moment. 
 
-Agents cannot read every complaint carefully. They need help. They need a copilot that can read each ticket, look at the customer's recent transaction history, figure out what actually happened, decide who should handle it, and draft a safe reply that does not, under any circumstances, ask the customer to share their PIN, OTP, or password. 
+Agents cannot read every complaint carefully. They need help. They need a copilot that can read each ticket, look at the customer's recent transaction history, figure out what actually happened, decide who should handle it and draft a safe reply that does not, under any circumstances, ask the customer to share their PIN, OTP, or password. 
 
 Your team's job is to build that copilot. You have 4.5 hours. The campaign will not pause for you. 
 
 ## **2. What You Are Building** 
 
-Build an AI/API service that exposes two HTTP endpoints. The service receives one customer complaint at a time, along with a short snippet of that customer's recent transaction history, and returns a single structured JSON response that classifies, routes, and explains the case for the support team. 
+Build an AI/API service that exposes two HTTP endpoints. The service receives one customer complaint at a time, along with a short snippet of that customer's recent transaction history and returns a single structured JSON response that classifies, routes and explains the case for the support team. 
 
-The service is positioned as an internal copilot for support agents, not an autonomous financial decision maker. It must never request sensitive credentials, never confirm a refund or reversal it has no authority to confirm, and must escalate ambiguous or high risk cases for human review. 
+The service is positioned as an internal copilot for support agents, not an autonomous financial decision maker. It must never request sensitive credentials, never confirm a refund or reversal it has no authority to confirm and must escalate ambiguous or high risk cases for human review. 
 
-All complaints and transaction histories used during evaluation are synthetic. No real customer data, no real payment system integration, and no production grade deployment is required. 
+All complaints and transaction histories used during evaluation are synthetic. No real customer data, no real payment system integration and no production grade deployment is required. 
 
 ## **3. The Investigator Twist** 
 
@@ -202,11 +202,11 @@ Build to the profile below. Sizing values are preferred guidance for teams deplo
 
 ## **9.1 Allowed External Services** 
 
-Your service may call major public LLM and AI providers (OpenAI, Anthropic, Hugging Face Inference, Cohere, Google AI, and similar). Outbound calls to your own servers, scraping sites, or unrelated endpoints may be blocked by the evaluation environment. 
+Your service may call major public LLM and AI providers (OpenAI, Anthropic, Hugging Face Inference, Cohere, Google AI and similar). Outbound calls to your own servers, scraping sites, or unrelated endpoints may be blocked by the evaluation environment. 
 
 ## **9.2 Secret Handling** 
 
-Do not commit API keys, tokens, or other secrets to the repository. Use environment variables for deployed endpoints, or the private form field for Docker or code submissions. Responses, logs, and error messages must not leak secrets, tokens, or stack traces. 
+Do not commit API keys, tokens, or other secrets to the repository. Use environment variables for deployed endpoints, or the private form field for Docker or code submissions. Responses, logs and error messages must not leak secrets, tokens, or stack traces. 
 
 ## **10. Submission Paths** 
 
@@ -228,17 +228,17 @@ Even if you submit a Live URL, your GitHub repository must still contain a runbo
 |---|---|---|
 |GitHub repository|Yes|Public or organizer accessible**(Organizer Github Handle :**<br>**bipulhf)**. All code created during the round.|
 |Endpoint URL, Docker<br>image, or runbook|Yes|Per Section 10. At least one of the three submission paths must<br>be valid.|
-|README.md|Yes|Setup instructions, run command, tech stack, AI approach, safety<br>logic, model and cost reasoning, assumptions, and known<br>limitations.|
+|README.md|Yes|Setup instructions, run command, tech stack, AI approach, safety<br>logic, model and cost reasoning, assumptions and known<br>limitations.|
 |Dependency fle|Yes|requirements.txt, package.json, pyproject.toml, or equivalent for<br>your stack.|
 |Sample output fle|Yes|At least one output generated from a public sample case in<br>QueueStorm_Preli_Sample_Cases.json.|
-|MODELS section in<br>README|Yes|List every model used, where it runs, and why it was chosen.|
+|MODELS section in<br>README|Yes|List every model used, where it runs and why it was chosen.|
 
 
 
 |**Deliverable**|**Required?**|**Details**|
 |---|---|---|
 |.env.example|Recommended|Listing required environment variable names (no real values) so<br>judges can reproduce locally.|
-|Architecture<br>Walkthrough Video|Recommended|Optional video of up to 90 seconds explaining the solution<br>architecture, API fow, evidence reasoning, safety guardrails,<br>deployment setup, and limitations. Submit a viewable link<br>through the submission form.|
+|Architecture<br>Walkthrough Video|Recommended|Optional video of up to 90 seconds explaining the solution<br>architecture, API fow, evidence reasoning, safety guardrails,<br>deployment setup and limitations. Submit a viewable link<br>through the submission form.|
 
 
 
@@ -264,7 +264,7 @@ A companion file, SUST_Preli_Sample_Cases.json, is published alongside this prob
 
 |**Use**|**How**|
 |---|---|
-|Understand the schema|Read the _meta.schema_notes and _meta.allowed_enums blocks at the top of the<br>fle for the full list of required felds, optional felds, and accepted enum values.|
+|Understand the schema|Read the _meta.schema_notes and _meta.allowed_enums blocks at the top of the<br>fle for the full list of required felds, optional felds and accepted enum values.|
 
 
 
@@ -279,7 +279,7 @@ A companion file, SUST_Preli_Sample_Cases.json, is published alongside this prob
 
 The 10 cases are reference examples, not the test set. The judge harness will exercise your service against a larger and broader set of hidden cases that includes scenarios not covered in the public pack. A service that only handles the 10 sample cases will lose substantial points on hidden testing. 
 
-The expected_output for each case is one valid response. Other valid responses exist. Your output does not need to match the expected output word for word, but it should be functionally equivalent: same relevant_transaction_id, same evidence_verdict, same case_type, same department, comparable severity, and a customer_reply that respects the safety rules in Section 8. 
+The expected_output for each case is one valid response. Other valid responses exist. Your output does not need to match the expected output word for word, but it should be functionally equivalent: same relevant_transaction_id, same evidence_verdict, same case_type, same department, comparable severity and a customer_reply that respects the safety rules in Section 8. 
 
 ## **14. Evaluation Overview** 
 
@@ -289,8 +289,8 @@ Full scoring details are in the Evaluation Rubric for Teams. A summary follows b
 
 |**Stage**|**Applied to**|**What is scored**|
 |---|---|---|
-|**Stage 1:**<br>**Automated**|All teams|Schema correctness, evidence reasoning, safety checks, API<br>performance, and deployment reachability through the judge harness.|
-|**Stage 2: Manual**<br>**Review**|Shortlisted<br>teams|Response quality, documentation, originality, deployment and integration<br>design, and selected verifcation.|
+|**Stage 1:**<br>**Automated**|All teams|Schema correctness, evidence reasoning, safety checks, API<br>performance and deployment reachability through the judge harness.|
+|**Stage 2: Manual**<br>**Review**|Shortlisted<br>teams|Response quality, documentation, originality, deployment and integration<br>design and selected verifcation.|
 
 
 
@@ -305,17 +305,17 @@ Full scoring details are in the Evaluation Rubric for Teams. A summary follows b
 
 |**Category**|**Weight**|**What it measures**|
 |---|---|---|
-|API Contract and Schema|15|Correct felds, types, enum values, and HTTP status codes.|
+|API Contract and Schema|15|Correct felds, types, enum values and HTTP status codes.|
 |Performance and Reliability|10|Within timeout, stable, handles malformed input.|
 |Response Quality|10|Clear summary, practical next action, safe professional reply (manual<br>review).|
 |Deployment and<br>Reproducibility|5|Judges can run or reach your service without team assistance.|
-|Documentation|5|README explains setup, AI usage, safety logic, and limitations<br>(manual review).|
+|Documentation|5|README explains setup, AI usage, safety logic and limitations<br>(manual review).|
 
 
 
 ## **14.3 Hidden Tests** 
 
-Hidden test cases will be used. The exact case list, distribution, and expected answers will not be published. Teams should design for the full problem statement rather than hard coding the public sample cases. Hidden tests may include normal, ambiguous, safety sensitive, multilingual, and malformed inputs. 
+Hidden test cases will be used. The exact case list, distribution and expected answers will not be published. Teams should design for the full problem statement rather than hard coding the public sample cases. Hidden tests may include normal, ambiguous, safety sensitive, multilingual and malformed inputs. 
 
 ## **15. Companion Documents** 
 
@@ -323,9 +323,9 @@ This Problem Statement is part of a three-document team-facing pack. Read all th
 
 |**Document**|**What it covers**|
 |---|---|
-|**Problem Statement (this**<br>**document)**|What to build, the request and response contract, enums, safety rules, runtime<br>constraints, and submission paths.|
-|**Team Instructions Manual**|How to execute the round: recommended workfow, team role split,<br>deployment options, secrets policy, testing checklist, and submission form<br>felds.|
-|**Evaluation Rubric for Teams**|How you are scored: category weights, safety penalties, latency tiers, tie<br>breakers, and how to prioritize during the round.|
+|**Problem Statement (this**<br>**document)**|What to build, the request and response contract, enums, safety rules, runtime<br>constraints and submission paths.|
+|**Team Instructions Manual**|How to execute the round: recommended workfow, team role split,<br>deployment options, secrets policy, testing checklist and submission form<br>felds.|
+|**Evaluation Rubric for Teams**|How you are scored: category weights, safety penalties, latency tiers, tie<br>breakers and how to prioritize during the round.|
 
 
 

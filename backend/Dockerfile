@@ -1,4 +1,4 @@
-# Akash Investigator API — slim, single-stage, CPU-only.
+# Akash Investigator API - slim, single-stage, CPU-only.
 # Final image is ~150-200 MB (well under the 500 MB recommendation / 1 GB limit).
 FROM python:3.11-slim
 

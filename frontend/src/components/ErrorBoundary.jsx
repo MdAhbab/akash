@@ -34,7 +34,7 @@ export default class ErrorBoundary extends Component {
           </h1>
           <p className="mt-4 text-muted">
             An unexpected error interrupted this screen. The rest of Akash is
-            still running — head back and try again.
+            still running - head back and try again.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link to="/" onClick={this.reset} className="btn btn-primary" data-cursor>

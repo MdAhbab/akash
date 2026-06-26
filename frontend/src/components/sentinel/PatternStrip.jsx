@@ -1,5 +1,5 @@
 /**
- * Threat Patterns Strip — aggregate indicator frequencies across all reviews.
+ * Threat Patterns Strip - aggregate indicator frequencies across all reviews.
  * Horizontal bar/legend showing which indicators are most common right now.
  */
 
