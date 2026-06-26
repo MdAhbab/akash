@@ -170,8 +170,8 @@ def resolve_env(deterministic: bool) -> None:
         f"GEMINI_MODEL={os.environ.get('GEMINI_MODEL', 'gemini-3.5-flash')}\n"
         f"OPENAI_API_KEY={openai}\n"
         f"OPENAI_MODEL={os.environ.get('OPENAI_MODEL', 'gpt-4o')}\n"
-        "LLM_TIMEOUT_SECONDS=12\n"
-        "REQUEST_BUDGET_SECONDS=25\n"
+        "LLM_TIMEOUT_SECONDS=6\n"
+        "REQUEST_BUDGET_SECONDS=10\n"
         f"USE_LLM={use_llm}\n"
     )
     os.chmod(target, 0o600)

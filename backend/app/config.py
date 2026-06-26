@@ -37,9 +37,11 @@ class Settings:
         self.openai_api_key: str = os.getenv("OPENAI_API_KEY", "").strip()
         self.openai_model: str = os.getenv("OPENAI_MODEL", "gpt-4o").strip()
 
-        # Latency / cost controls
-        self.llm_timeout_seconds: float = _as_float(os.getenv("LLM_TIMEOUT_SECONDS"), 12.0)
-        self.request_budget_seconds: float = _as_float(os.getenv("REQUEST_BUDGET_SECONDS"), 25.0)
+        # Latency / cost controls. Gemini-3.5-flash is a "thinking" model and can
+        # occasionally hang; a tight per-call timeout fails over to OpenAI (and
+        # then to the instant deterministic answer) fast, keeping p95 low.
+        self.llm_timeout_seconds: float = _as_float(os.getenv("LLM_TIMEOUT_SECONDS"), 6.0)
+        self.request_budget_seconds: float = _as_float(os.getenv("REQUEST_BUDGET_SECONDS"), 10.0)
         self.use_llm: bool = _as_bool(os.getenv("USE_LLM"), True)
 
         # Optional MySQL durability mirror (never in the request critical path).
