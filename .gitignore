@@ -1,0 +1,42 @@
+# ─── Secrets (NEVER commit) ──────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.env
+!*.env.example
+judging.env
+secrets.env
+**/API Keys.txt
+API Keys.txt
+*service-account*.json
+*credentials*.json
+
+# ─── Python ──────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.log
+
+# ─── Node / frontend ─────────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+*.local
+
+# ─── OS / editor ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ─── Runtime / data ──────────────────────────────────────────────────────
+*.sqlite
+*.db
+.cache/

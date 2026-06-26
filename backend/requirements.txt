@@ -1,0 +1,6 @@
+# QueueStorm Investigator — backend runtime dependencies.
+# Deliberately minimal so the Docker image stays well under the size limit.
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+httpx==0.27.2
+pydantic==2.9.2

@@ -1,0 +1,55 @@
+# QueueStorm — nginx site (HTTP). certbot rewrites this to add HTTPS (443) +
+# an HTTP->HTTPS redirect. __DOMAIN__ is substituted by run_onVM.py.
+#
+# Judges hit https://__DOMAIN__/health and /analyze-ticket directly; the SPA
+# calls the same backend through /api/*. Backend runs on 127.0.0.1:8787.
+
+upstream queuestorm_api {
+    server 127.0.0.1:8787;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name __DOMAIN__;
+
+    root /var/www/queuestorm;
+    index index.html;
+
+    client_max_body_size 1m;
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml;
+
+    # ── Judged API paths at root (so the harness reaches them directly) ──
+    location = /health           { proxy_pass http://queuestorm_api; }
+    location = /analyze-ticket   { proxy_pass http://queuestorm_api; }
+    location = /sort-ticket      { proxy_pass http://queuestorm_api; }
+    location = /stats            { proxy_pass http://queuestorm_api; }
+    location = /reviews          { proxy_pass http://queuestorm_api; }
+    location /tickets            { proxy_pass http://queuestorm_api; }
+    location /insights           { proxy_pass http://queuestorm_api; }
+
+    # ── SPA calls the API under /api/* (prefix stripped) ──
+    location /api/ {
+        proxy_pass http://queuestorm_api/;
+    }
+
+    # ── Static SPA with long-cache assets + history fallback ──
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Shared proxy headers + a generous timeout (< judge 30s window).
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_read_timeout 35s;
+    proxy_connect_timeout 5s;
+}

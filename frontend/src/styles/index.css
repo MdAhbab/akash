@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================ THEME TOKENS ============================ */
+:root,
+.dark {
+  /* Obsidian (dark) — RGB triplets for Tailwind alpha support */
+  --bg-base: 10 10 12;
+  --bg-elevated: 18 18 23;
+  --bg-surface: 22 22 29;
+  --text-primary: 244 242 238;
+  --text-secondary: 168 166 160;
+  --text-muted: 110 109 104;
+  --accent-violet: 122 92 255;
+  --accent-magenta: 255 61 129;
+  --accent-mint: 40 224 200;
+  --champagne: 217 198 163;
+  /* baked-alpha line + glass colors */
+  --line-subtle: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.13);
+  --glass: rgba(22, 22, 29, 0.62);
+  --grain-opacity: 0.045;
+  color-scheme: dark;
+}
+
+.light {
+  /* Porcelain (light) */
+  --bg-base: 246 244 239;
+  --bg-elevated: 255 255 255;
+  --bg-surface: 253 252 250;
+  --text-primary: 20 17 14;
+  --text-secondary: 74 70 63;
+  --text-muted: 138 133 124;
+  --accent-violet: 91 60 224;
+  --accent-magenta: 216 39 106;
+  --accent-mint: 18 181 156;
+  --champagne: 183 154 99;
+  --line-subtle: rgba(20, 18, 16, 0.09);
+  --line-strong: rgba(20, 18, 16, 0.16);
+  --glass: rgba(255, 255, 255, 0.66);
+  --grain-opacity: 0.03;
+  color-scheme: light;
+}
+
+/* ============================ BASE ============================ */
+@layer base {
+  * {
+    border-color: var(--line-subtle);
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    margin: 0;
+    background-color: rgb(var(--bg-base));
+    color: rgb(var(--text-primary));
+    font-family: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+    transition: background-color 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+      color 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    overflow-x: hidden;
+  }
+  /* Links inherit the surrounding text color by default (components set explicit
+     colors where needed). Without this, the UA link / visited-purple color makes
+     unstyled links — e.g. the header wordmark — illegible in both themes. */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* Form controls and placeholders follow the active theme, so typed text and
+     placeholder hints stay legible on both Obsidian and Porcelain. */
+  input,
+  textarea,
+  select {
+    color: rgb(var(--text-primary));
+  }
+  ::placeholder {
+    color: rgb(var(--text-muted));
+    opacity: 1;
+  }
+  ::selection {
+    background: rgb(var(--accent-magenta) / 0.28);
+    color: rgb(var(--text-primary));
+  }
+  /* tabular numerals everywhere data is shown */
+  .tnum {
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+  }
+  h1, h2, h3 {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  /* custom, on-brand scrollbar */
+  ::-webkit-scrollbar { width: 9px; height: 9px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+  }
+}
+
+/* ============================ COMPONENT UTILITIES ============================ */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 5vw, 96px);
+  }
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid var(--line-subtle);
+  }
+  .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgb(var(--text-muted));
+  }
+  .aurora-text {
+    background: linear-gradient(
+      110deg,
+      rgb(var(--accent-magenta)) 0%,
+      rgb(var(--accent-violet)) 48%,
+      rgb(var(--accent-mint)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .aurora-bg {
+    background: linear-gradient(
+      110deg,
+      rgb(var(--accent-magenta)) 0%,
+      rgb(var(--accent-violet)) 48%,
+      rgb(var(--accent-mint)) 100%
+    );
+  }
+  .hairline {
+    height: 1px;
+    width: 100%;
+    background: var(--line-strong);
+  }
+  .card {
+    background: rgb(var(--bg-surface));
+    border: 1px solid var(--line-subtle);
+    border-radius: 24px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.85rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, color 0.3s, border-color 0.3s;
+    will-change: transform;
+  }
+  .btn-primary {
+    background: rgb(var(--text-primary));
+    color: rgb(var(--bg-base));
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1px solid var(--line-strong);
+    color: rgb(var(--text-primary));
+  }
+  .btn-ghost:hover {
+    border-color: rgb(var(--accent-violet));
+    transform: translateY(-2px);
+  }
+}
+
+/* film grain overlay (kills the flat AI look) */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* custom cursor */
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 30px; height: 30px;
+  border: 1.5px solid rgb(var(--accent-violet));
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 5px; height: 5px;
+  background: rgb(var(--text-primary));
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-ring, .cursor-dot { display: none; }
+  body { cursor: auto; }
+}
+
+/* reduced motion: calm everything */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

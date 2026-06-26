@@ -1,0 +1,34 @@
+# All-in-one demo stack: API + SPA behind nginx (same-origin, no CORS).
+# For the judged Docker submission you only need the backend image; this compose
+# is for running the full demo locally or on a VM without the host-nginx path.
+#
+#   cd deploy && docker compose --env-file ../.env up -d --build
+#   open http://localhost  (SPA)   ·   http://localhost/health  (API)
+
+services:
+  backend:
+    build: ../backend
+    image: queuestorm-api
+    env_file: ../.env
+    environment:
+      - PORT=8787
+    expose:
+      - "8787"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8787/health').status==200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: ../frontend
+      args:
+        VITE_API_BASE_URL: /api
+    image: queuestorm-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
