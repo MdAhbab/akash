@@ -1,9 +1,9 @@
 {
-  "name": "queuestorm-frontend",
+  "name": "akash-frontend",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "QueueStorm frontend — React + Vite + Tailwind + Three.js + GSAP + Lenis. Obsidian Aurora design system.",
+  "description": "Akash frontend — investigator copilot console. React + Vite + Tailwind + Three.js + GSAP + Lenis.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

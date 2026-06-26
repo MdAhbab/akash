@@ -1,4 +1,4 @@
-"""FastAPI application — QueueStorm Investigator.
+"""FastAPI application — Akash Investigator.
 
 Required by the spec:
   GET  /health          -> {"status": "ok"}
@@ -30,7 +30,7 @@ from .schemas import AnalyzeTicketRequest, AnalyzeTicketResponse, HealthResponse
 from .store import store
 
 logging.basicConfig(level=logging.INFO)
-log = logging.getLogger("queuestorm")
+log = logging.getLogger("akash")
 
 
 @asynccontextmanager
@@ -46,7 +46,7 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(
-    title="QueueStorm Investigator",
+    title="Akash Investigator",
     version="1.0.0",
     description="An investigator copilot for fintech support agents.",
     lifespan=lifespan,
@@ -68,7 +68,7 @@ def health() -> HealthResponse:
 
 @app.get("/")
 def root() -> dict[str, str]:
-    return {"service": "QueueStorm Investigator", "health": "/health", "analyze": "/analyze-ticket"}
+    return {"service": "Akash Investigator", "health": "/health", "analyze": "/analyze-ticket"}
 
 
 async def _run_analysis(req: AnalyzeTicketRequest) -> dict:

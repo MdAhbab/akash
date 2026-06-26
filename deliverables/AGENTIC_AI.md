@@ -41,7 +41,7 @@ Example MCP client config (`mcpServers` block):
 ```json
 {
   "mcpServers": {
-    "queuestorm-investigator": {
+    "akash-investigator": {
       "command": "python",
       "args": ["-m", "mcp_server.server"],
       "cwd": "/absolute/path/to/backend"

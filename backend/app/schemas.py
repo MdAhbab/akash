@@ -1,4 +1,4 @@
-"""Pydantic schemas + enums for the QueueStorm Investigator API.
+"""Pydantic schemas + enums for the Akash Investigator API.
 
 These models are the single source of truth for the API contract. The strict
 `Enum` definitions are what guarantee the rubric's "API Contract & Schema"

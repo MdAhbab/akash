@@ -1,4 +1,4 @@
-# QueueStorm Investigator
+# Akash Investigator
 
 > An **investigator copilot** for fintech support agents. It reads one customer
 > complaint plus a short transaction snippet, decides **what actually happened**
@@ -58,8 +58,8 @@ curl -X POST http://localhost:8787/analyze-ticket -H "Content-Type: application/
 
 ```bash
 cd backend
-docker build -t queuestorm-api .
-docker run -p 8000:8000 -e PORT=8000 --env-file ../deploy/judging.env queuestorm-api
+docker build -t akash-api .
+docker run -p 8000:8000 -e PORT=8000 --env-file ../deploy/judging.env akash-api
 curl http://localhost:8000/health
 ```
 
@@ -90,7 +90,7 @@ cd backend && python tests/test_samples.py     # 10/10 sample cases, all replies
 | LLM (fallback) | **OpenAI `gpt-4o`** | Independent provider so one outage ≠ downtime. |
 | Tools / MCP | **Model Context Protocol server** | The agent's tools are reusable by any MCP client. |
 | Persistence | **MySQL 8** (optional durability mirror) | Stores analyzed tickets for the dashboard; **never in the request path** — a DB outage cannot affect `/health` or `/analyze-ticket`. |
-| Frontend | React + Vite + Tailwind + Three.js (optional demo) | "QueueStorm" operations console — not judged, but real. |
+| Frontend | React + Vite + Tailwind + Three.js (optional demo) | "Akash" operations console — not judged, but real. |
 | Deploy | nginx + Docker on a 1 GB VM (GCP/DigitalOcean), Let's Encrypt TLS | One `sudo python3 deploy/run_onVM.py` brings it all up. |
 
 ---
@@ -201,8 +201,8 @@ are unavailable, the deterministic engine answers every request.
 ## 10. Submission / deployment paths
 
 1. **Live URL (preferred):** `https://akash.2haas.com` (judges call `/health` and `/analyze-ticket`).
-2. **Docker image:** `cd backend && docker build -t queuestorm-api .` →
-   `docker run -p 8000:8000 -e PORT=8000 --env-file judging.env queuestorm-api`.
+2. **Docker image:** `cd backend && docker build -t akash-api .` →
+   `docker run -p 8000:8000 -e PORT=8000 --env-file judging.env akash-api`.
 3. **Code + runbook:** see [deliverables/RUNBOOK.md](deliverables/RUNBOOK.md).
 
 Full GCP/VM deployment (one command): [deliverables/DEPLOYMENT_GCP.md](deliverables/DEPLOYMENT_GCP.md).
@@ -217,7 +217,7 @@ backend/            FastAPI service (the judged artifact)
   app/agents/       evidence, reply, safety, orchestrator
   mcp_server/       Model Context Protocol server exposing the agent tools
   tests/            sample-case validation
-frontend/           React "QueueStorm" operations console (optional demo)
+frontend/           React "Akash" operations console (optional demo)
 deploy/             run_onVM.py, nginx config, docker-compose (+MySQL), judging.env
 deliverables/       all documentation + sample outputs (start here)
 ```

@@ -47,9 +47,9 @@ class Settings:
         self.db_backend: str = os.getenv("DB_BACKEND", "memory").strip().lower()
         self.mysql_host: str = os.getenv("MYSQL_HOST", "").strip()
         self.mysql_port: int = int(os.getenv("MYSQL_PORT", "3306"))
-        self.mysql_user: str = os.getenv("MYSQL_USER", "queuestorm").strip()
+        self.mysql_user: str = os.getenv("MYSQL_USER", "akash").strip()
         self.mysql_password: str = os.getenv("MYSQL_PASSWORD", "").strip()
-        self.mysql_db: str = os.getenv("MYSQL_DB", "queuestorm").strip()
+        self.mysql_db: str = os.getenv("MYSQL_DB", "akash").strip()
 
     @property
     def has_gemini(self) -> bool:

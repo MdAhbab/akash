@@ -28,12 +28,12 @@ export default class ErrorBoundary extends Component {
     return (
       <div className="shell grid min-h-[70vh] place-items-center py-24 text-center">
         <div className="max-w-md">
-          <div className="label mb-4 text-faint">Error · the storm broke through</div>
+          <div className="label mb-4 text-faint">Error · something went sideways</div>
           <h1 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-tight">
             This view drifted off course.
           </h1>
           <p className="mt-4 text-muted">
-            An unexpected error interrupted this screen. The rest of QueueStorm is
+            An unexpected error interrupted this screen. The rest of Akash is
             still running — head back and try again.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

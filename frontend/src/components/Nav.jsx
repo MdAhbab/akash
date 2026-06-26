@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../lib/api.js';
+import { BRAND } from '../lib/brand.js';
 import ThemeToggle from './ThemeToggle.jsx';
 import { cn } from '../lib/cn.js';
 
@@ -10,7 +11,7 @@ const LINKS = [
   { to: '/console', label: 'Console' },
   { to: '/sentinel', label: 'Sentinel' },
   { to: '/insights', label: 'Insights' },
-  { to: '/docs', label: 'Docs' },
+  { to: '/docs', label: 'Docs · For Judges' },
 ];
 
 function HealthDot() {
@@ -70,7 +71,7 @@ export default function Nav() {
           >
             <Link to="/" className={cn('group flex items-center gap-2.5', overHero ? 'text-[#F4F2EE]' : 'text-ink')} data-cursor>
               <Logo overHero={overHero} />
-              <span className="font-display text-[16px] font-semibold tracking-tight">QueueStorm</span>
+              <span className="font-display text-[16px] font-semibold tracking-tight">{BRAND.name}</span>
             </Link>
 
             <nav className="hidden items-center gap-1 lg:flex">

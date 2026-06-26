@@ -16,9 +16,9 @@ services:
       --max-connections=40
       --skip-name-resolve
     environment:
-      MYSQL_DATABASE: queuestorm
-      MYSQL_USER: queuestorm
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-queuestorm_pw_change_me}
+      MYSQL_DATABASE: akash
+      MYSQL_USER: akash
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-akash_pw_change_me}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_pw_change_me}
     volumes:
       - qs_db:/var/lib/mysql
@@ -32,16 +32,16 @@ services:
 
   backend:
     build: ../backend
-    image: queuestorm-api
+    image: akash-api
     env_file: ../.env
     environment:
       - PORT=8787
       - DB_BACKEND=mysql
       - MYSQL_HOST=db
       - MYSQL_PORT=3306
-      - MYSQL_USER=queuestorm
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-queuestorm_pw_change_me}
-      - MYSQL_DB=queuestorm
+      - MYSQL_USER=akash
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-akash_pw_change_me}
+      - MYSQL_DB=akash
     expose:
       - "8787"
     depends_on:
@@ -59,7 +59,7 @@ services:
       context: ../frontend
       args:
         VITE_API_BASE_URL: /api
-    image: queuestorm-frontend
+    image: akash-frontend
     ports:
       - "80:80"
     depends_on:

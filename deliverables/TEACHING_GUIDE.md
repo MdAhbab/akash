@@ -79,7 +79,7 @@ fits in 1 GB RAM, and turns it on. Judges just call the URL.
 
 ## 8. ≤90-second architecture video script
 
-> "This is QueueStorm, an investigator copilot for fintech support. It exposes
+> "This is Akash, an investigator copilot for fintech support. It exposes
 > two endpoints: `/health` and `/analyze-ticket`.
 >
 > When a ticket arrives, a deterministic evidence engine first reads the

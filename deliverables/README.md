@@ -10,11 +10,10 @@ Everything a judge (or you) needs, in reading order.
 | 2 | [AGENTIC_AI.md](AGENTIC_AI.md) | The 5 agentic features + the MCP server. |
 | 3 | [SAFETY.md](SAFETY.md) | Safety guardrails, escalation, secret handling. |
 | 4 | [MODELS.md](MODELS.md) | Every model, where it runs, why, and cost. |
-| 5 | [DEPLOYMENT_GCP.md](DEPLOYMENT_GCP.md) | One-command VM deploy at akash.2haas.com (nginx + HTTPS). |
-| 6 | [RUNBOOK.md](RUNBOOK.md) | Copy-paste run instructions (local / Docker / compose / VM). |
-| 7 | [DELIVERABLES_CHECKLIST.md](DELIVERABLES_CHECKLIST.md) | Every required item ✔ mapped to where it lives. |
-| 8 | [TEACHING_GUIDE.md](TEACHING_GUIDE.md) | Plain-English walkthrough + ≤90s video script. |
-| 9 | [SUBMISSION_FORM_ANSWERS.md](SUBMISSION_FORM_ANSWERS.md) | Ready-to-paste submission form answers. |
+| 5 | [RUNBOOK.md](RUNBOOK.md) | Copy-paste run instructions (local / Docker / compose / VM). |
+| 6 | [DELIVERABLES_CHECKLIST.md](DELIVERABLES_CHECKLIST.md) | Every required item ✔ mapped to where it lives. |
+| 7 | [TEACHING_GUIDE.md](TEACHING_GUIDE.md) | Plain-English walkthrough + ≤90s video script. |
+| 8 | [SUBMISSION_FORM_ANSWERS.md](SUBMISSION_FORM_ANSWERS.md) | Ready-to-paste submission form answers. |
 | — | [sample_outputs/](sample_outputs/) | Generated outputs for the public sample cases. |
 
 ## Status snapshot

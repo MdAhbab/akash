@@ -135,7 +135,7 @@ export default function NotFound() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          Lost in the storm.
+          Lost in the noise.
         </motion.p>
 
         <motion.p
@@ -171,7 +171,7 @@ export default function NotFound() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7, duration: 0.6 }}
       >
-        QueueStorm — Page not found
+        Akash — Page not found
       </motion.div>
     </div>
   );

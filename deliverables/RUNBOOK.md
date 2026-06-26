@@ -1,6 +1,6 @@
 # RUNBOOK — bring the service up from scratch
 
-A stranger can copy-paste this to run QueueStorm. Three paths; pick one.
+A stranger can copy-paste this to run Akash. Three paths; pick one.
 
 ---
 
@@ -35,12 +35,12 @@ curl -X POST http://localhost:8787/analyze-ticket \
 
 ```bash
 cd backend
-docker build -t queuestorm-api .
+docker build -t akash-api .
 
 # with keys:
-docker run -p 8000:8000 -e PORT=8000 --env-file ../deploy/judging.env queuestorm-api
+docker run -p 8000:8000 -e PORT=8000 --env-file ../deploy/judging.env akash-api
 # without keys (deterministic mode, still valid + safe):
-docker run -p 8000:8000 -e PORT=8000 -e USE_LLM=false queuestorm-api
+docker run -p 8000:8000 -e PORT=8000 -e USE_LLM=false akash-api
 
 curl http://localhost:8000/health
 ```
@@ -105,7 +105,7 @@ python -m mcp_server.server
 | `REQUEST_BUDGET_SECONDS` | 25 | Total LLM-stage budget before deterministic fallback. |
 | `DB_BACKEND` | memory | `mysql` to enable the durability mirror. |
 | `MYSQL_HOST` / `MYSQL_PORT` | — / 3306 | MySQL connection (when `DB_BACKEND=mysql`). |
-| `MYSQL_USER` / `MYSQL_PASSWORD` / `MYSQL_DB` | queuestorm / — / queuestorm | MySQL credentials. |
+| `MYSQL_USER` / `MYSQL_PASSWORD` / `MYSQL_DB` | akash / — / akash | MySQL credentials. |
 
 > The `docker compose` and VM deploy paths set the MySQL variables for you. A
 > bare `uvicorn` run defaults to `DB_BACKEND=memory` (no database needed).

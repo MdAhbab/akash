@@ -18,7 +18,7 @@ from .config import get_settings
 from .schemas import AnalyzeTicketRequest
 from .agents.evidence import EvidenceAnalysis
 
-log = logging.getLogger("queuestorm.llm")
+log = logging.getLogger("akash.llm")
 
 ALLOWED_CASE_TYPES = [
     "wrong_transfer", "payment_failed", "refund_request", "duplicate_payment",
@@ -28,7 +28,7 @@ ALLOWED_CASE_TYPES = [
 ALLOWED_VERDICTS = ["consistent", "inconsistent", "insufficient_data"]
 ALLOWED_SEVERITY = ["low", "medium", "high", "critical"]
 
-SYSTEM_RULES = """You are QueueStorm, an INTERNAL copilot for fintech support agents.
+SYSTEM_RULES = """You are Akash, an INTERNAL copilot for fintech support agents.
 You investigate one complaint at a time using the customer's complaint text and a
 short transaction history. You are NOT an autonomous financial decision maker.
 

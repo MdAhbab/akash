@@ -277,7 +277,7 @@ export default function Settings() {
         <SettingsCard
           index="04"
           title="API"
-          description="Live connection status for the QueueStorm backend."
+          description="Live connection status for the Akash backend."
         >
           <div className="space-y-3">
             <div className="flex items-center justify-between">

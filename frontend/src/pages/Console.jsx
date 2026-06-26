@@ -109,7 +109,7 @@ export default function Console() {
         <PageHeader
           index="02"
           title="Command Center"
-          subtitle="Live ticket operations — every message, sorted and routed in milliseconds."
+          subtitle="Live ticket operations — every complaint investigated, routed, and flagged in milliseconds."
         />
         <PageLoader label="Connecting to live feed" />
       </div>
@@ -122,7 +122,7 @@ export default function Console() {
         <PageHeader
           index="02"
           title="Command Center"
-          subtitle="Live ticket operations — every message, sorted and routed in milliseconds."
+          subtitle="Live ticket operations — every complaint investigated, routed, and flagged in milliseconds."
         />
         <ErrorState error={ticketsError || statsError} retry={retryAll} />
       </div>
@@ -282,7 +282,7 @@ export default function Console() {
       <div className="hairline mt-16" />
       <div className="mt-4 flex items-center justify-between">
         <span className="label text-faint">
-          QueueStorm · Command Center · F2
+          Akash · Command Center · F2
         </span>
         <span className="label text-faint">
           Sentinel →{' '}

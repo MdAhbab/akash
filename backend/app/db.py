@@ -23,7 +23,7 @@ from typing import Any, Optional
 
 from .config import get_settings
 
-log = logging.getLogger("queuestorm.db")
+log = logging.getLogger("akash.db")
 
 try:
     import pymysql  # type: ignore

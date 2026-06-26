@@ -1,10 +1,10 @@
-# QueueStorm — nginx site (HTTP). certbot rewrites this to add HTTPS (443) +
+# Akash — nginx site (HTTP). certbot rewrites this to add HTTPS (443) +
 # an HTTP->HTTPS redirect. __DOMAIN__ is substituted by run_onVM.py.
 #
 # Judges hit https://__DOMAIN__/health and /analyze-ticket directly; the SPA
 # calls the same backend through /api/*. Backend runs on 127.0.0.1:8787.
 
-upstream queuestorm_api {
+upstream akash_api {
     server 127.0.0.1:8787;
 }
 
@@ -13,7 +13,7 @@ server {
     listen [::]:80;
     server_name __DOMAIN__;
 
-    root /var/www/queuestorm;
+    root /var/www/akash;
     index index.html;
 
     client_max_body_size 1m;
@@ -21,17 +21,17 @@ server {
     gzip_types text/css application/javascript application/json image/svg+xml;
 
     # ── Judged API paths at root (so the harness reaches them directly) ──
-    location = /health           { proxy_pass http://queuestorm_api; }
-    location = /analyze-ticket   { proxy_pass http://queuestorm_api; }
-    location = /sort-ticket      { proxy_pass http://queuestorm_api; }
-    location = /stats            { proxy_pass http://queuestorm_api; }
-    location = /reviews          { proxy_pass http://queuestorm_api; }
-    location /tickets            { proxy_pass http://queuestorm_api; }
-    location /insights           { proxy_pass http://queuestorm_api; }
+    location = /health           { proxy_pass http://akash_api; }
+    location = /analyze-ticket   { proxy_pass http://akash_api; }
+    location = /sort-ticket      { proxy_pass http://akash_api; }
+    location = /stats            { proxy_pass http://akash_api; }
+    location = /reviews          { proxy_pass http://akash_api; }
+    location /tickets            { proxy_pass http://akash_api; }
+    location /insights           { proxy_pass http://akash_api; }
 
     # ── SPA calls the API under /api/* (prefix stripped) ──
     location /api/ {
-        proxy_pass http://queuestorm_api/;
+        proxy_pass http://akash_api/;
     }
 
     # ── Static SPA with long-cache assets + history fallback ──

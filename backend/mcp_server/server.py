@@ -1,4 +1,4 @@
-"""QueueStorm MCP server.
+"""Akash MCP server.
 
 Exposes the investigator's tools over the Model Context Protocol (stdio) so any
 MCP-compatible client (IDE agents, desktop assistants, custom orchestrators) can:
@@ -38,7 +38,7 @@ async def _amain() -> None:
         print("The 'mcp' package is required: pip install mcp", file=sys.stderr)
         raise SystemExit(1)
 
-    server = Server("queuestorm-investigator")
+    server = Server("akash-investigator")
 
     @server.list_tools()
     async def list_tools() -> list:  # type: ignore[no-redef]

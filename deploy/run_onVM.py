@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-QueueStorm — one-command VM deployer (Debian/Ubuntu, e.g. GCP e2-micro).
+Akash — one-command VM deployer (Debian/Ubuntu, e.g. GCP e2-micro).
 
 Works on any Debian/Ubuntu VM (GCP, DigitalOcean, AWS, …) — it does not depend
 on GCP-specific tooling.
@@ -8,11 +8,11 @@ on GCP-specific tooling.
 WHAT IT DOES (idempotent — safe to re-run):
   1. Installs nginx, certbot, docker, curl.
   2. Adds 2 GB swap if RAM < 2 GB (so the Vite/three.js build won't OOM on micro).
-  3. Resolves API keys into /opt/queuestorm/.env (falls back to deterministic,
+  3. Resolves API keys into /opt/akash/.env (falls back to deterministic,
      no-LLM mode if no keys are supplied — the service still works and scores).
   4. Provisions a tuned MySQL container (durability mirror; skip with --no-db).
   5. Builds + runs the backend API container on 127.0.0.1:8787.
-  6. Builds the React frontend and serves it from /var/www/queuestorm via nginx.
+  6. Builds the React frontend and serves it from /var/www/akash via nginx.
   7. Configures nginx to route /health, /analyze-ticket and /api/* to the API.
   8. Obtains a Let's Encrypt HTTPS certificate for the domain (best effort).
   9. Verifies /health before exiting.
@@ -25,7 +25,7 @@ USAGE (from the repository root, after `git clone`):
   sudo python3 deploy/run_onVM.py --no-db             # memory-only (no MySQL)
 
 Provide real keys one of three ways (checked in order):
-  * /opt/queuestorm/.env exists already, OR
+  * /opt/akash/.env exists already, OR
   * a .env file at the repo root (scp it up — it is gitignored), OR
   * GEMINI_API_KEY / OPENAI_API_KEY set in the environment of this command.
 """
@@ -44,16 +44,16 @@ from pathlib import Path
 # ── Configuration (env-overridable) ──────────────────────────────────────
 DOMAIN = os.environ.get("DOMAIN", "akash.2haas.com")
 EMAIL = os.environ.get("EMAIL", "ahbab.md@gmail.com")
-APP_DIR = Path("/opt/queuestorm")
-WEB_ROOT = Path("/var/www/queuestorm")
+APP_DIR = Path("/opt/akash")
+WEB_ROOT = Path("/var/www/akash")
 BACKEND_PORT = int(os.environ.get("BACKEND_PORT", "8787"))
-API_IMAGE = "queuestorm-api"
-API_CONTAINER = "queuestorm-api"
-FE_BUILD_IMAGE = "queuestorm-frontend-build"
-NET_NAME = "queuestorm-net"
-DB_CONTAINER = "queuestorm-db"
+API_IMAGE = "akash-api"
+API_CONTAINER = "akash-api"
+FE_BUILD_IMAGE = "akash-frontend-build"
+NET_NAME = "akash-net"
+DB_CONTAINER = "akash-db"
 DB_IMAGE = "mysql:8.0"
-DB_VOLUME = "queuestorm-db-data"
+DB_VOLUME = "akash-db-data"
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -151,7 +151,7 @@ def resolve_env(deterministic: bool) -> None:
     target = APP_DIR / ".env"
 
     if target.exists() and not deterministic:
-        print("  /opt/queuestorm/.env already exists — keeping it")
+        print("  /opt/akash/.env already exists — keeping it")
         return
 
     repo_env = REPO_ROOT / ".env"
@@ -208,8 +208,8 @@ def provision_mysql(no_db: bool) -> None:
             "docker", "run", "-d", "--name", DB_CONTAINER, "--network", NET_NAME,
             "--restart", "unless-stopped",
             "-v", f"{DB_VOLUME}:/var/lib/mysql",
-            "-e", "MYSQL_DATABASE=queuestorm",
-            "-e", "MYSQL_USER=queuestorm",
+            "-e", "MYSQL_DATABASE=akash",
+            "-e", "MYSQL_USER=akash",
             "-e", f"MYSQL_PASSWORD={pw}",
             "-e", f"MYSQL_ROOT_PASSWORD={root_pw}",
             DB_IMAGE,
@@ -239,7 +239,7 @@ def provision_mysql(no_db: bool) -> None:
     # Persist DB config so the API container (and re-runs) use it.
     for k, v in {
         "DB_BACKEND": "mysql", "MYSQL_HOST": DB_CONTAINER, "MYSQL_PORT": "3306",
-        "MYSQL_USER": "queuestorm", "MYSQL_PASSWORD": pw, "MYSQL_DB": "queuestorm",
+        "MYSQL_USER": "akash", "MYSQL_PASSWORD": pw, "MYSQL_DB": "akash",
         "MYSQL_ROOT_PASSWORD": root_pw,
     }.items():
         set_env_var(env_file, k, v)
@@ -283,11 +283,11 @@ def build_frontend() -> None:
 # ── stage 7: nginx site ────────────────────────────────────────────────────
 def configure_nginx() -> None:
     log("7/9 nginx", "Installing the nginx site config …")
-    template = (REPO_ROOT / "deploy" / "nginx" / "queuestorm.conf.template").read_text()
+    template = (REPO_ROOT / "deploy" / "nginx" / "akash.conf.template").read_text()
     conf = template.replace("__DOMAIN__", DOMAIN)
-    site = Path("/etc/nginx/sites-available/queuestorm.conf")
+    site = Path("/etc/nginx/sites-available/akash.conf")
     site.write_text(conf)
-    link = Path("/etc/nginx/sites-enabled/queuestorm.conf")
+    link = Path("/etc/nginx/sites-enabled/akash.conf")
     if link.exists() or link.is_symlink():
         link.unlink()
     link.symlink_to(site)
@@ -356,12 +356,12 @@ def verify() -> None:
             break
         time.sleep(2)
     else:
-        print("  WARNING: backend /health did not respond. Check: docker logs queuestorm-api")
+        print("  WARNING: backend /health did not respond. Check: docker logs akash-api")
         return
     run_ok("curl -fsS http://127.0.0.1/health")
     scheme = "https" if Path(f"/etc/letsencrypt/live/{DOMAIN}").exists() else "http"
     print("\n" + "=" * 64)
-    print("  QueueStorm is deployed.")
+    print("  Akash is deployed.")
     print(f"    Health : {scheme}://{DOMAIN}/health")
     print(f"    API    : {scheme}://{DOMAIN}/analyze-ticket   (POST)")
     print(f"    Console: {scheme}://{DOMAIN}/")
@@ -369,7 +369,7 @@ def verify() -> None:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Deploy QueueStorm on a VM.")
+    ap = argparse.ArgumentParser(description="Deploy Akash on a VM.")
     ap.add_argument("--skip-tls", action="store_true", help="HTTP only, skip certbot")
     ap.add_argument("--deterministic", action="store_true", help="force no-LLM mode")
     ap.add_argument("--no-frontend", action="store_true", help="API only, skip the SPA build")
@@ -377,7 +377,7 @@ def main() -> None:
     args = ap.parse_args()
 
     require_root()
-    print(f"Deploying QueueStorm to {DOMAIN} (repo: {REPO_ROOT})")
+    print(f"Deploying Akash to {DOMAIN} (repo: {REPO_ROOT})")
     install_packages()
     ensure_swap()
     resolve_env(args.deterministic)

@@ -15,19 +15,19 @@ const GATES = [
 ];
 
 const QUESTIONS = [
-  { n: '01', k: 'Case type', t: 'What kind of problem is this?', d: 'Wrong transfer, failed payment, refund, phishing — or something else entirely.', c: '#7A5CFF' },
-  { n: '02', k: 'Severity', t: 'How serious is it?', d: 'From a quiet low to a screaming critical. The storm has a temperature.', c: '#F0743A' },
-  { n: '03', k: 'Department', t: 'Which team should handle it?', d: 'Support, disputes, payments, or fraud — routed the moment it lands.', c: '#34C7E0' },
-  { n: '04', k: 'Summary', t: 'What does an agent need to know?', d: 'One neutral sentence. Read in two seconds. Never asks for a PIN or OTP.', c: '#28E0C8' },
+  { n: '01', k: 'Evidence', t: 'Which transaction is this really about?', d: 'Akash matches the complaint to the customer’s recent transactions and returns the relevant transaction id — or null when nothing in the history fits.', c: '#28E0C8' },
+  { n: '02', k: 'Verdict', t: 'Does the data back the claim?', d: 'consistent, inconsistent, or insufficient_data. When the evidence is genuinely unclear, Akash says so instead of guessing.', c: '#7A5CFF' },
+  { n: '03', k: 'Routing', t: 'Who handles it, and how urgent?', d: 'Case type, severity, and the right department — disputes, payments, merchant, agent, or fraud — decided by policy, not vibes.', c: '#34C7E0' },
+  { n: '04', k: 'Safe reply', t: 'What can we tell the customer?', d: 'A professional draft that never asks for a PIN or OTP and never promises a refund it has no authority to confirm.', c: '#FF3D81' },
 ];
 
-const JOURNEY = ['Received', 'Read', 'Classified', 'Routed', 'Flagged?', 'Resolved'];
+const JOURNEY = ['Received', 'Complaint read', 'Evidence matched', 'Verdict', 'Routed', 'Safe reply'];
 
 const FEATURES = [
-  { n: '01', t: 'Triage Playground', d: 'Paste a customer message and watch it resolve into a structured verdict — case type, severity, routed team, and a two-second summary — with a cinematic reveal.', to: '/playground', tag: 'Try it live' },
-  { n: '02', t: 'Command Center', d: 'A living operations floor: tickets streaming into four department gates, severity heatmaps, department load, throughput and latency, in real time.', to: '/console', tag: 'Live ops' },
+  { n: '01', t: 'Investigator Playground', d: 'Paste a complaint and a few transactions, then watch Akash identify the relevant transaction, deliver an evidence verdict, route the case, and draft a safe reply — with a cinematic reveal.', to: '/playground', tag: 'Try it live' },
+  { n: '02', t: 'Command Center', d: 'A living operations floor: tickets streaming into department gates, severity heatmaps, department load, throughput and latency, in real time.', to: '/console', tag: 'Live ops' },
   { n: '03', t: 'Sentinel', d: 'A fraud radar where every phishing and critical case surfaces for human review — risk by distance, severity by colour, an SLA on every blip.', to: '/sentinel', tag: 'Human review' },
-  { n: '04', t: 'Insights', d: 'The storm, read back to you: volume trends, case mix, a triage funnel, and plain-language anomaly callouts written from the real numbers.', to: '/insights', tag: 'Analytics' },
+  { n: '04', t: 'Insights', d: 'The numbers, read back to you: volume trends, case mix, a triage funnel, and plain-language anomaly callouts written from real data.', to: '/insights', tag: 'Analytics' },
 ];
 
 export default function Landing() {
@@ -107,13 +107,13 @@ export default function Landing() {
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#FF3D81' }} /> bKash · SUST CSE Carnival 2026
               </div>
               <h1 className="font-display text-[clamp(2.6rem,8vw,7rem)] font-semibold leading-[0.9] tracking-[-0.03em]">
-                <KineticLine words={['We', 'read', 'the', 'storm.']} stage={stage} from={0} to={0.4} />
+                <KineticLine words={['The', 'complaint', 'says', 'one', 'thing.']} stage={stage} from={0} to={0.4} />
                 <span className="block aurora-text">
-                  <KineticLine words={['You', 'read', 'one', 'sentence.']} stage={stage} from={0.25} to={0.7} />
+                  <KineticLine words={['The', 'evidence', 'says', 'another.']} stage={stage} from={0.25} to={0.7} />
                 </span>
               </h1>
-              <p className="mt-6 max-w-md text-base text-white/65 md:text-lg">
-                Intelligent ticket triage for digital finance. One message in, one structured verdict out — in milliseconds.
+              <p className="mt-6 max-w-lg text-base text-white/65 md:text-lg">
+                Akash is an investigator copilot for digital-finance support. It reads each ticket and the customer’s recent transactions, decides what actually happened, routes the case, and drafts a safe reply — in milliseconds.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link to="/playground" className="btn !bg-white !text-black hover:-translate-y-0.5" data-cursor>Open the Console</Link>
@@ -132,7 +132,7 @@ export default function Landing() {
                 ))}
               </div>
               <div className="mt-8 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-white/40">
-                <span>Scroll to sort the storm</span>
+                <span>Scroll to follow one investigation</span>
                 <span className="h-px w-12 bg-white/30" />
               </div>
             </div>
@@ -302,7 +302,7 @@ function StatsRibbon() {
   const b = useCountUp(38, 0, 1600);
   const c = useCountUp(0, 0, 1600);
   const stats = [
-    { v: a, l: 'tickets sorted', s: 'across every channel' },
+    { v: a, l: 'tickets investigated', s: 'across every channel' },
     { v: b, l: 'ms median latency', s: 'rules-first, GPU-free' },
     { v: c, l: 'PINs ever requested', s: 'safety, by construction' },
   ];

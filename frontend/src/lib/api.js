@@ -1,4 +1,4 @@
-// API client for the QueueStorm backend.
+// API client for the Akash backend.
 const BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8787';
 
 async function req(path, options = {}) {

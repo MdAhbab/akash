@@ -19,8 +19,8 @@ values. **Do not** put real API keys anywhere except the form's private field.
 **Docker build/run command (fallback):**
 ```
 cd backend
-docker build -t queuestorm-api .
-docker run -p 8000:8000 -e PORT=8000 --env-file judging.env queuestorm-api
+docker build -t akash-api .
+docker run -p 8000:8000 -e PORT=8000 --env-file judging.env akash-api
 # health: http://localhost:8000/health
 ```
 

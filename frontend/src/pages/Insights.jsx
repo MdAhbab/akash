@@ -178,7 +178,7 @@ export default function Insights() {
       <PageHeader
         index="04"
         title="Insights"
-        subtitle="What the storm is telling you — trends, mix, and anomalies."
+        subtitle="What the data is telling you — trends, case mix, and anomalies."
       />
 
       {isLoading && <PageLoader label="Loading insights" />}
@@ -330,7 +330,7 @@ export default function Insights() {
               <Reveal>
                 <div className="hairline mb-6" />
                 <div className="flex items-center justify-between pb-16">
-                  <span className="label text-faint">QueueStorm · Insights · F4</span>
+                  <span className="label text-faint">Akash · Insights · F4</span>
                   <span className="font-mono text-xs tnum text-faint">
                     {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                   </span>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-QueueStorm — local launcher.
+Akash — local launcher.
 
 Sets up and runs the WHOLE stack on your machine (no Docker needed):
 
@@ -130,7 +130,7 @@ def smoke_test() -> None:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Run QueueStorm locally.")
+    ap = argparse.ArgumentParser(description="Run Akash locally.")
     ap.add_argument("--test", action="store_true", help="smoke-test then exit")
     ap.add_argument("--api-only", action="store_true", help="backend only")
     ap.add_argument("--no-install", action="store_true", help="skip dependency install")
