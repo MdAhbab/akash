@@ -7,13 +7,17 @@ A fintech complaint **investigator** copilot. It reads one customer complaint an
 
 ---
 
+**Live demo: https://akash-investigator.vercel.app**
+
+Hosted on Vercel in deterministic mode (no LLM keys). Ticket history is held in memory, so it resets when the function restarts.
+
 **Live endpoints (judge harness):**
 
 | | URL |
 |---|---|
-| Health | `GET https://akash.2haas.com/health` |
-| Analyze | `POST https://akash.2haas.com/analyze-ticket` |
-| Console UI | `https://akash.2haas.com/` |
+| Health | `GET https://akash-investigator.vercel.app/health` |
+| Analyze | `POST https://akash-investigator.vercel.app/analyze-ticket` |
+| Console UI | `https://akash-investigator.vercel.app/` |
 
 ---
 
@@ -48,14 +52,14 @@ A fintech complaint **investigator** copilot. It reads one customer complaint an
 ### Verify the live service
 
 ```bash
-curl https://akash.2haas.com/health
+curl https://akash-investigator.vercel.app/health
 # → {"status":"ok"}
 ```
 
 ### Analyze a ticket
 
 ```bash
-curl -s -X POST https://akash.2haas.com/analyze-ticket \
+curl -s -X POST https://akash-investigator.vercel.app/analyze-ticket \
   -H "Content-Type: application/json" \
   -d '{
     "ticket_id": "TKT-001",
@@ -660,7 +664,7 @@ Three valid submission paths. In order of preference:
 
 ### Path A — Live URL (preferred for judges)
 
-`https://akash.2haas.com` is the deployed service. Judges call `/health` and `/analyze-ticket` directly. No setup required.
+`https://akash-investigator.vercel.app` is the deployed service. Judges call `/health` and `/analyze-ticket` directly. No setup required.
 
 ### Path B — Docker image
 
